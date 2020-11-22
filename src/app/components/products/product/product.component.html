@@ -1,0 +1,29 @@
+<ion-app>
+  <ion-header translucent>
+    <ion-toolbar>
+      <ion-title>EMPANADAS</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content fullscreen>
+    <div class="ion-padding">
+      <img :src="{{ data.imagen }}" />
+
+      <div class="ion-padding">
+        <div class="desc">
+          <h4>
+            {{ data.nombre }}
+          </h4>
+          <h6>
+            {{ data.descripcion }}
+          </h6>
+          <h4>{{ data.precio }} Bs.</h4>
+        </div>
+
+        <ion-button color="danger" mode="ios" expand="block" shape="round">
+          <ion-icon slot="start" name="basket-outline"></ion-icon>
+          Añadir al carrito
+        </ion-button>
+      </div>
+    </div>
+  </ion-content>
+</ion-app>
