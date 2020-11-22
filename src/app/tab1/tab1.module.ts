@@ -6,8 +6,7 @@ import { Tab1Page } from './tab1.page';
 import { ExploreContainerComponentModule } from '../explore-container/explore-container.module';
 import { Product } from '../shared/product.interface';
 import { Tab1PageRoutingModule } from './tab1-routing.module';
-import { PostService } from './../components/posts/post.service';
-
+import { FirestoreService } from '../services/firestore/firestore.service';
 @NgModule({
   imports: [
     IonicModule,
@@ -23,20 +22,15 @@ export class Tab1PageModule implements OnInit {
   //public posts$: Observable<Product[]>;
   public cats = [];
 
-  constructor(private postSvc: PostService) { }
+  constructor(private postSvc: FirestoreService) { }
 
-  ngOnInit() {
-    console.log("caca");
+  ngOnInit():void {
     //this.postSvc.getAllPosts().subscribe(res => console.log("POST", res));
    // this.posts$ = this.postSvc.getAllPosts();
-   this.postSvc.getCat().subscribe((catsSnapshot) => {
-      this.cats = [];
-      catsSnapshot.forEach((catData: any) => {
-        this.cats.push({
-          id: catData.payload.doc.id,
-          data: catData.payload.doc.data()
-        });
-      })
-    });
+   this.caca();
+  }
+  caca(){
+    this.postSvc.getAllPosts().subscribe(res => console.log("POST", res));
+   // this.posts$ = this.postSvc.getAllPosts();
   }
 }
