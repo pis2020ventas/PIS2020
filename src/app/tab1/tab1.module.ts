@@ -32,15 +32,5 @@ export class Tab1PageModule implements OnInit {
   }
     tutorials: any;
 
- retrieveTutorials(): void {
-    this.ps.getAll().snapshotChanges().pipe(
-      map(changes =>
-        changes.map(c =>
-          ({ key: c.payload.key, ...c.payload.val() })
-        )
-      )
-    ).subscribe(data => {
-      this.tutorials = data;
-    });
-  }
+
 }

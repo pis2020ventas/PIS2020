@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 
 import { Product } from 'src/app/shared/product.interface';
 
@@ -11,15 +11,23 @@ import { map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class FirestoreService {
-  private dbPath = '/comida';
-  tutorialsRef: AngularFireList<Product> = null;
 
-  constructor(private db: AngularFireDatabase) {
-    this.tutorialsRef = db.list(this.dbPath);
+  constructor(private afs: AngularFirestore) {
+    this.productsCollection =afs.collection<Product>('comida');
+    this.products=this.productsCollection.valueChanges(); 
   }
+  private productsCollection: AngularFirestoreCollection<Product>;
+  private products: Observable<Product[]>;
   
-  getAll(): AngularFireList<Product> {
-    return this.tutorialsRef;
+  getAllProducts() {
+    return this.products= this.productsCollection.snapshotChanges()
+    .pipe(map(changes => {
+      return changes.map(action => {
+        const data = action.payload.doc.data() as Product;
+        data.id = action.payload.doc.id;
+        return data;
+      });
+    }));
   }
 
 
