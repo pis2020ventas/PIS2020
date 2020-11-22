@@ -1,34 +1,50 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
 
 import { Product } from 'src/app/shared/product.interface';
 
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, finalize } from 'rxjs/operators';
+import { AngularFireStorage } from '@angular/fire/storage';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class FirestoreService {
+  private productsCollection: AngularFirestoreCollection<Product>;
+  private bookDoc: AngularFirestoreDocument<Product>;
+  private book: Observable<Product>;
 
   constructor(private afs: AngularFirestore) {
-    this.productsCollection =afs.collection<Product>('comida');
-    this.products=this.productsCollection.valueChanges(); 
+        this.productsCollection = afs.collection<Product>('comida');
+
   }
-  private productsCollection: AngularFirestoreCollection<Product>;
-  private products: Observable<Product[]>;
+
   
-  getAllProducts() {
-    return this.products= this.productsCollection.snapshotChanges()
-    .pipe(map(changes => {
-      return changes.map(action => {
-        const data = action.payload.doc.data() as Product;
-        data.id = action.payload.doc.id;
-        return data;
-      });
-    }));
+  public getAllProducts() {
+    return this.productsCollection.snapshotChanges()
+      .pipe(
+        map(actions =>
+          actions.map(a => {
+            const data = a.payload.doc.data() as Product;
+            const id = a.payload.doc.id;
+            return { id, ...data };
+          })
+        )
+      );
   }
+  getOneProduct(id: string){
+    this.bookDoc = this.afs.doc<Product>(`comida/${id}`);
+    return this.book = this.bookDoc.snapshotChanges().pipe(map(action => {
+      if (action.payload.exists === false) {
+        return null;
+      } else {
+        const data = action.payload.data() as Product;
+        data.id = action.payload.id;
+        return data;
+      }
+    }));  }
 
 
   
