@@ -6,4 +6,6 @@ export interface Product{
     precio:string;
     promocion:string;
     rating:string;
+    id?: string;
+
 }

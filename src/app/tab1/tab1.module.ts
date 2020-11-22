@@ -7,6 +7,8 @@ import { ExploreContainerComponentModule } from '../explore-container/explore-co
 import { Product } from '../shared/product.interface';
 import { Tab1PageRoutingModule } from './tab1-routing.module';
 import { FirestoreService } from '../services/firestore/firestore.service';
+import { map } from 'rxjs/operators';
+
 @NgModule({
   imports: [
     IonicModule,
@@ -22,15 +24,23 @@ export class Tab1PageModule implements OnInit {
   //public posts$: Observable<Product[]>;
   public cats = [];
 
-  constructor(private postSvc: FirestoreService) { }
+  constructor(private ps: FirestoreService) { }
 
   ngOnInit():void {
     //this.postSvc.getAllPosts().subscribe(res => console.log("POST", res));
    // this.posts$ = this.postSvc.getAllPosts();
-   this.caca();
   }
-  caca(){
-    this.postSvc.getAllPosts().subscribe(res => console.log("POST", res));
-   // this.posts$ = this.postSvc.getAllPosts();
+    tutorials: any;
+
+ retrieveTutorials(): void {
+    this.ps.getAll().snapshotChanges().pipe(
+      map(changes =>
+        changes.map(c =>
+          ({ key: c.payload.key, ...c.payload.val() })
+        )
+      )
+    ).subscribe(data => {
+      this.tutorials = data;
+    });
   }
 }
