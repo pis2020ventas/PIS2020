@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { User } from '../shared/user.Interface';
 import { AngularFireAuth, AngularFireAuthModule } from "@angular/fire/auth";
 import firebase  from 'firebase/app';
+//import * as firebase from 'firebase';
 import 'firebase/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Observable, of } from 'rxjs';
@@ -12,7 +13,7 @@ import { switchMap } from 'rxjs/operators';
 export class AuthService {
   public user$:Observable<User>;
 
-  constructor(private afAuth:AngularFireAuth, private afs:AngularFirestore) { 
+  constructor(public afAuth:AngularFireAuth, private afs:AngularFirestore) { 
     this.user$ = this.afAuth.authState.pipe(
       switchMap((user) => {
         if(user) {
@@ -23,7 +24,7 @@ export class AuthService {
     )
 
   }
-  async resetPasswprd(email: string): Promise<void> {
+  async resetPassword(email: string): Promise<void> {
     try {
       return this.afAuth.sendPasswordResetEmail(email);
     } catch (error) {
@@ -39,7 +40,6 @@ export class AuthService {
       } catch (error) {
         console.log('Error ->', error);
       }
-
   }
 
   async register(email:string, password:string): Promise<User> {
@@ -61,7 +61,6 @@ export class AuthService {
       } catch (error ) {
         console.log('Error -> ', error);
       }
-
   }
 
   async sendVerificationEmail(): Promise<void> {
@@ -71,6 +70,13 @@ export class AuthService {
       console.log('Error -> ', error);
     }
   }
+  isEmailVerified(user: User):boolean {
+    return user.emailVerified === true ? true : false;
+  }
+
+
+
+
   async logout(): Promise<void> {
       try {
         await this.afAuth.signOut();
