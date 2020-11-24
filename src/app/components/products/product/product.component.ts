@@ -14,12 +14,12 @@ export class ProductComponent implements OnInit {
   public data: Product ;
  constructor(private route: ActivatedRoute, private postproduct: FirestoreService) { }
 
- ngOnInit() {
+  ngOnInit() {
     const idPost = this.route.snapshot.params['id'];
     this.getDetails(idPost);
- }
+  }
 
- getDetails(ids: string): void {
+  getDetails(ids: string): void {
     this.postproduct.getOneProduct(ids).subscribe(products => {
       this.data = products;
     });
