@@ -10,12 +10,11 @@ import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 
 /*FIREBASE*/
-
 import { AngularFirestoreModule } from "@angular/fire/firestore";
 import { AngularFireStorageModule } from "@angular/fire/storage";
 import { AngularFireModule } from "@angular/fire";
 import { environment } from "src/environments/environment";
-
+import { AngularFireAuthModule } from "@angular/fire/auth";
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -26,6 +25,7 @@ import { environment } from "src/environments/environment";
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AngularFireStorageModule,
+    AngularFireAuthModule
   ],
   providers: [
     StatusBar,
