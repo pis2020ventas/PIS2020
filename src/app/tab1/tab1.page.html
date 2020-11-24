@@ -1,13 +1,12 @@
 <ion-app>
   <ion-header translucent>
     <ion-toolbar>
-      <ion-title>NUESTRO PRODUCTOS</ion-title>
+      <ion-title>NUESTROS PRODUCTOS</ion-title>
     </ion-toolbar>
   </ion-header>
-  ,
   <ion-content fullscreen>
     <ion-card *ngFor="let data of products">
-      <img :src="{{data.imagen}}" />
+      <img *ngIf=b :src="{{data.imagen}}" />
       <ion-card-header>
         <ion-card-subtitle>PRECIO: {{data.precio}} bs.</ion-card-subtitle>
         <h4 routerLink="/product/{{data.id}}">
@@ -17,9 +16,16 @@
       <ion-card-content>
         {{ data.descripcion }}
         <section class="full-width">
-          <ion-button expand="block">AÑADIR AL CARRITO</ion-button>
+          <ion-button (click)="addProductCart(data)" expand="block">AÑADIR AL CARRITO</ion-button>
         </section>
       </ion-card-content>
+    </ion-card>
+    <ion-button (click)="checkCart()">VER CARRITO</ion-button>
+    <h1>CARRITO</h1>
+    <ion-card *ngFor="let product of cart">
+      <h4>
+        {{ product.nombre }}
+      </h4>
     </ion-card>
   </ion-content>
 </ion-app>
