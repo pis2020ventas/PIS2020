@@ -1,0 +1,68 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>COMPRAR</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="registrationForm" (ngSubmit)="submit()">
+    <ion-list>
+      <ion-item>
+        <ion-label position="floating">Nombre</ion-label>
+        <ion-input
+          autocapitalize
+          inputmode="text"
+          formControlName="nombre"
+        ></ion-input>
+      </ion-item>
+      <div *ngFor="let error of errorMessages.nombre">
+        <ng-container
+          *ngIf="nombre.hasError(error.type)&& (nombre.dirty || nombre.touched)"
+        >
+          <small class="error-message">{{error.message}}</small>
+        </ng-container>
+      </div>
+      <ion-item>
+        <ion-label position="floating">NIT</ion-label>
+        <ion-input formControlName="nit"></ion-input>
+      </ion-item>
+      <div *ngFor="let error of errorMessages.nit">
+        <ng-container
+          *ngIf="nit.hasError(error.type) && (nit.dirty || nit.touched)"
+        >
+          <small class="error-message">{{error.message}}</small>
+        </ng-container>
+      </div>
+      <ion-item>
+        <ion-label position="floating">Telefono</ion-label>
+        <ion-input inputmode="tel" formControlName="telefono"></ion-input>
+      </ion-item>
+      <div *ngFor="let error of errorMessages.telefono">
+        <ng-container
+          *ngIf="telefono.hasError(error.type) && (telefono.dirty || telefono.touched)"
+        >
+          <small class="error-message">{{error.message}}</small>
+        </ng-container>
+      </div>
+      <ion-item>
+        <ion-label position="floating">Calle</ion-label>
+        <ion-input formControlName="ubicacion"></ion-input>
+      </ion-item>
+      <div *ngFor="let error of errorMessages.ubicacion">
+        <ng-container
+          *ngIf="ubicacion.hasError(error.type) && (ubicacion.dirty || ubicacion.touched)"
+        >
+          <small class="error-message">{{error.message}}</small>
+        </ng-container>
+      </div>
+    </ion-list>
+
+    <ion-button
+      [disabled]="!registrationForm.valid"
+      type="submit"
+      expand="block"
+    >
+      TERMINAR COMPRA
+    </ion-button>
+  </form>
+</ion-content>
