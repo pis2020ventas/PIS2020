@@ -1,17 +1,45 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Tab 2
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
+<ion-app>
+  <ion-header [translucent]="true">
     <ion-toolbar>
-      <ion-title size="large">Tab 2</ion-title>
+      <ion-title>
+        CARRITO
+      </ion-title>
     </ion-toolbar>
   </ion-header>
+  <ion-content [fullscreen]="true" *ngIf="this.cart.size > 0" color="warning">
+    <ion-card *ngFor="let product of getKeys(cart)">
+      <ion-item>
+        <ion-button (click)="lessProductCart(product)">
+          <ion-icon name="remove-circle-outline"></ion-icon>
+        </ion-button>
+        {{ cart.get(product) }}
+        <ion-button (click)="moreProductCart(product)">
+          <ion-icon name="add-circle-outline"></ion-icon>
+        </ion-button>
+        {{ product.nombre }}
+      </ion-item>
+      <ion-card-header>
+        {{ product.precio * cart.get(product) }}
+      </ion-card-header>
+      <ion-button color="success">
+        <ion-icon name="trash-outline"></ion-icon>
+      </ion-button>
+    </ion-card>
+    <ion-card-header>
+      {{ total }}
+    </ion-card-header>
+    <ion-card-header>
+      <ion-button *ngIf="this.cart.size > 0" color="success">
+        <ion-icon name="card-outline"></ion-icon>
+          COMPRAR
+      </ion-button>
+    </ion-card-header>
+  </ion-content>
+  <ion-content [fullscreen]="true" *ngIf="this.cart.size == 0">
+    PARECE QUE NO ELEGISTE NADA
+  </ion-content>
+</ion-app>
 
-  <app-explore-container name="Tab 2 page"></app-explore-container>
-</ion-content>
+
+
+
