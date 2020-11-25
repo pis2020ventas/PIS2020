@@ -1,100 +1,72 @@
 import { Injectable } from '@angular/core';
-import { User } from '../shared/user.Interface';
-import { AngularFireAuth, AngularFireAuthModule } from "@angular/fire/auth";
-import firebase  from 'firebase/app';
-//import * as firebase from 'firebase';
-import 'firebase/auth';
-import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Observable, of } from 'rxjs';
+import { User } from '../shared/user';
+import { AngularFireAuth } from "@angular/fire/auth";
+import { AngularFirestore } from '@angular/fire/firestore';
+import { Router } from '@angular/router';
+import { LoadingController, ToastController } from '@ionic/angular';
 import { switchMap } from 'rxjs/operators';
-@Injectable({
-  providedIn: 'root'
-})
-export class AuthService {
-  public user$:Observable<User>;
+@Injectable()
 
-  constructor(public afAuth:AngularFireAuth, private afs:AngularFirestore) { 
-    this.user$ = this.afAuth.authState.pipe(
-      switchMap((user) => {
-        if(user) {
-           return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
-         }
-         return of(null);
-      })
-    )
+export class AuthService 
+{
+  user$:Observable<User>;
+  user:User;
 
+  constructor (
+    private afauth: AngularFireAuth,
+    private afs: AngularFirestore,
+    private router: Router,
+    private loadingCtrl : LoadingController,
+    private toastr: ToastController
+  ){
+    this.user$ = this.afauth.authState.pipe(
+      switchMap(user =>
+        {
+          if(user) 
+          {
+            return this.afs.doc(`users/${user.uid}`).valueChanges();
+          } else {
+            return of(null);
+          }
+        })
+    );
   }
-  async resetPassword(email: string): Promise<void> {
-    try {
-      return this.afAuth.sendPasswordResetEmail(email);
-    } catch (error) {
-      console.log('Error ->',error);
-    }
-  }
 
-  async logingoogle(): Promise<User> {
-      try {
-        const {user}= await this.afAuth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
-        this.updateUserData(user);
-        return user;
-      } catch (error) {
-        console.log('Error ->', error);
+  async login(email, pass) {
+    const loading = await this.loadingCtrl.create({
+      message:'Authenticating..',
+      spinner: 'crescent',
+      showBackdrop:true
+    });
+    loading.present();
+    this.afauth.signInWithEmailAndPassword(email,pass).then((data)=>{
+      if(!data.user.emailVerified) {
+        loading.dismiss();
+        this.toast('Please verify your email','danger');
+        this.logout();
+      } else {
+        loading.dismiss();
+        this.router.navigate(['/home']);
       }
+    })
+  } //end of login
+
+  logout() {
+    this.afauth.signOut().then(()=>{
+      this.router.navigate(['/login']);
+    });
   }
 
-  async register(email:string, password:string): Promise<User> {
-    try {
-      const {user} = await this.afAuth.createUserWithEmailAndPassword(email,password);
-      await this.sendVerificationEmail();
-      return user; 
-    } catch (error) {
-      console.log('Error -> ', error);
-    }
-
-  }
-
-  async login(email: string, password: string): Promise<User> {
-      try {
-        const {user } = await this.afAuth.signInWithEmailAndPassword(email,password);
-        this.updateUserData(user);
-        return user;
-      } catch (error ) {
-        console.log('Error -> ', error);
-      }
-  }
-
-  async sendVerificationEmail(): Promise<void> {
-    try {
-      return (await this.afAuth.currentUser).sendEmailVerification();
-    } catch (error) {
-      console.log('Error -> ', error);
-    }
-  }
-  isEmailVerified(user: User):boolean {
-    return user.emailVerified === true ? true : false;
-  }
-
-
-
-
-  async logout(): Promise<void> {
-      try {
-        await this.afAuth.signOut();
-      } catch (error) {
-        console.log('Error -> ', error);
-      }
-
-  }
-  
-  private updateUserData(user:User) { 
-    const userRef:AngularFirestoreDocument<User> = this.afs.doc(`users/${user.uid}`);
-    const data:User = {
-      uid:user.uid,
-      email:user.email,
-      emailVerified:user.emailVerified,
-      displayName: user.displayName,
-    };
-    return userRef.set(data, {merge:true});
+  async toast(message,status) 
+  {
+    const toast = await this.toastr.create({
+      message:message,
+      position: 'top',
+      color: status,
+      duration: 2000
+    });
+    toast.present();
   }
 
 }
