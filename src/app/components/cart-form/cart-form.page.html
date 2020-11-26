@@ -1,0 +1,117 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>COMPRAR</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="ionicForm" (ngSubmit)="submitForm()" novalidate>
+    <ion-item lines="full">
+      <ion-label position="floating">Nombre:</ion-label>
+      <ion-input formControlName="nombre" type="text"></ion-input>
+    </ion-item>
+    <span
+      style="color: #ed1b24;"
+      class="error ion-padding"
+      *ngIf="isSubmitted && errorControl.nombre.errors?.required"
+    >
+      Espacio obligatorio
+    </span>
+    <span
+      style="color: #ed1b24;"
+      class="error ion-padding"
+      *ngIf="isSubmitted && errorControl.nombre.errors?.minlength"
+    >
+      El nombre debe tener al menos 5 carácteres
+    </span>
+
+    <!--ion-item lines="full">
+      <ion-label position="floating">Email</ion-label>
+      <ion-input formControlName="email" type="email"></ion-input>
+    </!--ion-item>
+    <span
+      class="error ion-padding"
+      *ngIf="isSubmitted && errorControl.email.errors?.required"
+    >
+      Email is required.
+    </span>
+    <span--
+      class="error ion-padding"
+      *ngIf="isSubmitted && errorControl.email.errors?.pattern"
+    >
+      Please provide valid email id.
+    </span-->
+
+    <ion-item lines="full">
+      <ion-label position="floating">Nit:</ion-label>
+      <ion-input
+        maxlength="10"
+        formControlName="nit"
+        type="text"
+        required
+      ></ion-input>
+    </ion-item>
+    <span
+      class="error ion-padding"
+      style="color: #ed1b24;"
+      *ngIf="isSubmitted && errorControl.nit.errors?.required"
+    >
+      Espacio Obligatorio
+    </span>
+    <span
+      class="error ion-padding"
+      style="color: #ed1b24;"
+      *ngIf="isSubmitted && errorControl.nit.errors?.pattern"
+    >
+      Sólo son permitidos valores númericos.
+    </span>
+    <ion-item lines="full">
+      <ion-label position="floating">Dirección:</ion-label>
+      <ion-input formControlName="direccion" type="text"></ion-input>
+    </ion-item>
+    <span
+      class="error ion-padding"
+      style="color: #ed1b24;"
+      *ngIf="isSubmitted && errorControl.direccion.errors?.required"
+    >
+      El nombre es requerido
+    </span>
+    <span
+      class="error ion-padding"
+      style="color: #ed1b24;"
+      *ngIf="isSubmitted && errorControl.direccion.errors?.minlength"
+    >
+      El nombre debe tener al menos 5 carácteres.
+    </span>
+    <ion-item lines="full">
+      <ion-label position="floating">Teléfono:</ion-label>
+      <ion-input
+        maxlength="10"
+        formControlName="telefono"
+        type="text"
+        required
+      ></ion-input>
+    </ion-item>
+    <span
+      class="error ion-padding"
+      style="color: #ed1b24;"
+      *ngIf="isSubmitted && errorControl.telefono.errors?.required"
+    >
+      Espacio obligatorio
+    </span>
+    <span
+      class="error ion-padding"
+      style="color: #ed1b24;"
+      *ngIf="isSubmitted && errorControl.telefono.errors?.pattern"
+    >
+      Sólo son permitidos valores númericos.
+    </span>
+    <ion-row>
+      <ion-col>
+        <ion-button type="submit" color="danger" expand="block">
+          Terminar compra
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </form>
+</ion-content>
