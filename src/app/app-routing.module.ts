@@ -31,7 +31,12 @@ const routes: Routes = [
   {
     path: 'forgot-password',
     loadChildren: () => import('./forgot-password/forgot-password.module').then( m => m.ForgotPasswordPageModule)
+  },
+  {
+    path: 'cart-form',
+    loadChildren: () => import('./components/cart-form/cart-form.module').then( m => m.CartFormPageModule)
   }
+
 
 ];
 @NgModule({
