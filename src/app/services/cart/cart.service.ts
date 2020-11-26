@@ -25,8 +25,28 @@ export class CartService {
     this.toast('\"'+product.nombre+' x '+(this.cart.get(product))+'\" añadido al Carrito','primary');
   }
 
+  removeProductCart(product):void{  
+    this.cart.delete(product);
+  }
+
+  moreProductCart(product):void{
+    this.cart.set(product, this.cart.get(product) + 1);
+  }
+
+  lessProductCart(product):void{
+    this.cart.set(product, this.cart.get(product) - 1);
+  }
+
   getCart(){
     return this.cart;
+  }
+  
+  getTotal(){
+    var total: number = 0;
+    for(let [product, cantidad] of this.cart) {
+      total += product.precio * cantidad; 
+    }
+    return total;
   }
 
   async toast(message,status) 
@@ -40,6 +60,5 @@ export class CartService {
     });
     toast.present();
   }
-
 
 }
