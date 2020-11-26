@@ -42,9 +42,9 @@ export class RegisterPage implements OnInit {
       this.afauth.createUserWithEmailAndPassword(this.email,this.password).then((data)=> {
         this.afs.collection('users').doc(data.user.uid).set({
         'userId':data.user.uid,
-        'name':this.name,
         'email':this.email,
-        'createdAt': Date.now()
+        'displayName':this.name,
+        'emailVerified': false
         });
         
         data.user.sendEmailVerification().then(function() {
@@ -56,7 +56,7 @@ export class RegisterPage implements OnInit {
       .then(()=>{
         loading.dismiss();
         this.toast('Registration Succesful \t Verification Mail Sent','success');
-        this.router.navigate(['/login']);
+        this.router.navigate(['/']);
       })
       .catch((error)=> {
         loading.dismiss();

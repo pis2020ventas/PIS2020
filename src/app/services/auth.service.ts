@@ -2,10 +2,12 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { User } from '../shared/user';
 import { AngularFireAuth } from "@angular/fire/auth";
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 import { LoadingController, ToastController } from '@ionic/angular';
 import { switchMap } from 'rxjs/operators';
+import firebase  from 'firebase/app';
+import 'firebase/auth';
 @Injectable()
 
 export class AuthService 
@@ -33,6 +35,68 @@ export class AuthService
     );
   }
 
+  private updateUserData(user:User) { 
+    const userRef:AngularFirestoreDocument<User> = this.afs.doc(`users/${user.uid}`);
+    const data:User = {
+      uid:user.uid,
+      email:user.email,
+      displayName: user.displayName,
+      emailVerified:user.emailVerified
+    };
+    return userRef.set(data, {merge:true});
+  }
+
+  async sendVerificationEmail(): Promise<void> {
+    try {
+      return (await this.afauth.currentUser).sendEmailVerification();
+    } catch (error) {
+      console.log('Error -> ', error);
+    }
+  }
+  isEmailVerified(user:User):boolean {
+    return user.emailVerified ===true ? true : false;
+  }
+    
+  async loginfacebook() : Promise<User> {    
+    try {    
+      const loading = await this.loadingCtrl.create({
+      message:'Authenticating..',
+      spinner: 'crescent',
+      showBackdrop:true
+    });
+    loading.present();
+    var provider = new firebase.auth.FacebookAuthProvider();
+    const {user} = await this.afauth.signInWithPopup(provider);
+    this.updateUserData(user);
+    loading.dismiss();
+    return user;
+  } catch (error) {
+    console.log('Error->',error);
+    /*
+    const credential = result.credential as firebase.auth.OAuthCredential;
+        const token = credential.accessToken;
+        // The signed-in user info.
+        const user = result.user;*/
+  }
+}
+
+  async logingoogle2(): Promise<User> {
+    try {    
+        const loading = await this.loadingCtrl.create({
+        message:'Authenticating..',
+        spinner: 'crescent',
+        showBackdrop:true
+      });
+      loading.present();
+      const {user} =await this.afauth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
+      loading.dismiss();
+      this.updateUserData(user);
+      return user;
+    } catch (error) {
+      console.log('Error->',error);
+    }
+  }
+
   async login(email, pass) {
     const loading = await this.loadingCtrl.create({
       message:'Authenticating..',
@@ -54,7 +118,7 @@ export class AuthService
 
   logout() {
     this.afauth.signOut().then(()=>{
-      this.router.navigate(['/login']);
+      this.router.navigate(['/']);
     });
   }
 

@@ -1,5 +1,7 @@
 {
   "name": "pis2020",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
