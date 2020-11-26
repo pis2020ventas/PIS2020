@@ -106,14 +106,13 @@ export class AuthService
     loading.present();
     this.afauth.signInWithEmailAndPassword(email,pass).then((data)=>{
       if(!data.user.emailVerified) {
-        loading.dismiss();
         this.toast('Please verify your email','danger');
         this.logout();
       } else {
-        loading.dismiss();
         this.router.navigate(['/home']);
       }
-    })
+    });
+    loading.dismiss();
   } //end of login
 
   logout() {

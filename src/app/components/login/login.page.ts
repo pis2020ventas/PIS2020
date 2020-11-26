@@ -44,8 +44,6 @@ export class LoginPage implements OnInit {
       loading.present();
       this.auth.login(this.email,this.password)
       .then(()=>{
-        console.log('login sucessfull');
-        //enviame a esta otra pagina
         loading.dismiss();
       })
       .catch((error)=>{
@@ -64,7 +62,7 @@ export class LoginPage implements OnInit {
       if(user) {
         const isVerified = this.auth.isEmailVerified(user);
         if (isVerified) {
-          this.onLoginRedirect();
+          this.onLoginRedirect(isVerified);
         } else {
           this.toast('Please Verify your email', 'danger');
         }
@@ -81,7 +79,7 @@ export class LoginPage implements OnInit {
       if(user) {
         const isVerified = this.auth.isEmailVerified(user);
         if (isVerified) {
-          this.onLoginRedirect();
+          this.onLoginRedirect(isVerified);
         } else {
           this.toast('Please Verify your email', 'danger');
         }
@@ -91,7 +89,7 @@ export class LoginPage implements OnInit {
     }
   }
 
-  onLoginRedirect(): void
+  onLoginRedirect(isVerified: boolean): void
   {
     this.router.navigate(['/products']);
   }
