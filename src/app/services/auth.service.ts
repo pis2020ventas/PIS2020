@@ -8,7 +8,9 @@ import { LoadingController, ToastController } from '@ionic/angular';
 import { switchMap } from 'rxjs/operators';
 import firebase  from 'firebase/app';
 import 'firebase/auth';
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 
 export class AuthService 
 {
@@ -117,7 +119,7 @@ export class AuthService
 
   logout() {
     this.afauth.signOut().then(()=>{
-      this.router.navigate(['/']);
+      this.router.navigate(['/login']);
     });
   }
 

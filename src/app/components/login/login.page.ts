@@ -91,7 +91,7 @@ export class LoginPage implements OnInit {
 
   onLoginRedirect(isVerified: boolean): void
   {
-    this.router.navigate(['/products']);
+    this.router.navigate(['/']);
   }
 
   async toast(message,status) 

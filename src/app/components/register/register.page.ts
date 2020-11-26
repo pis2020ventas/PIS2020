@@ -56,7 +56,7 @@ export class RegisterPage implements OnInit {
       .then(()=>{
         loading.dismiss();
         this.toast('Registration Succesful \t Verification Mail Sent','success');
-        this.router.navigate(['/']);
+        this.router.navigate(['/login']);
       })
       .catch((error)=> {
         loading.dismiss();

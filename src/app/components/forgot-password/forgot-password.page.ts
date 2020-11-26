@@ -35,7 +35,7 @@ export class ForgotPasswordPage implements OnInit {
       .then(()=> {
         loading.dismiss();
         this.toast('Please check your mail','success');
-        this.router.navigate(['/']);
+        this.router.navigate(['/login']);
       })
       .catch((error)=>  {
         loading.dismiss();
