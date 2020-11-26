@@ -4,9 +4,9 @@
     <description>An awesome Ionic/Cordova app.</description>
     <author email="hi@ionicframework.com" href="http://ionicframework.com/">Ionic Framework Team</author>
     <universal-links>
-        <host name="DYNAMIC_LINK_DOMAIN" scheme="https" />
+        <host name="https://chachaslogin.page.link" scheme="https" />
         <host name="pis2020-39b08.firebaseapp.com" scheme="https">
-            <path url="/__/auth/callback"/>
+            <path url="/__/auth/callback" />
         </host>
     </universal-links>
     <content src="index.html" />
