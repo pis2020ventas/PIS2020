@@ -1,11 +1,11 @@
 <ion-app>
   <ion-header translucent>
     <ion-toolbar>
-      <ion-title>NUESTROS PRODUCTOS</ion-title>
+      <ion-title class="titles">NUESTROS PRODUCTOS</ion-title>
     </ion-toolbar>
   </ion-header>
   <ion-content fullscreen>
-    <ion-card *ngFor="let data of products">
+    <ion-card *ngFor="let data of products" class="productcard">
       <img :src="{{data.imagen}}" />
       <ion-card-header>
         <ion-card-subtitle>PRECIO: {{data.precio}} bs.</ion-card-subtitle>
