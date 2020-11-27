@@ -111,7 +111,7 @@ export class AuthService
         this.toast('Please verify your email','danger');
         this.logout();
       } else {
-        this.router.navigate(['/home']);
+        this.router.navigate(['/tabs/tab1']);
       }
     });
     loading.dismiss();
