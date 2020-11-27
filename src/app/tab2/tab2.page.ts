@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CartService } from '../services/cart/cart.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -10,7 +11,7 @@ import { CartService } from '../services/cart/cart.service';
 export class Tab2Page {
   public cart = new Map();
 
-  constructor(public cartService: CartService) {}
+  constructor(public cartService: CartService, public router: Router) {}
 
   ngOnInit() {
     this.cart = this.cartService.getCart();
@@ -30,6 +31,11 @@ export class Tab2Page {
 
   getKeys(map){
     return Array.from(map.keys());
+  }
+
+  goToProducts(){
+        this.router.navigate(['/cart-form']);
+
   }
 
 }

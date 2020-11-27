@@ -5,16 +5,25 @@ import { element } from 'protractor';
 import { MapOperator } from 'rxjs/internal/operators/map';
 import { LiteralMapEntry } from '@angular/compiler/src/output/output_ast';
 import { ToastController } from '@ionic/angular'
+import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
+import { ProductsCart } from 'src/app/shared/products-cart.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
   public cart = new Map();
+  private datoscompraCollection: AngularFirestoreCollection<ProductsCart>;
 
   constructor(
-    private toastr:ToastController
-  ) { }
+    private toastr:ToastController,private afs: AngularFirestore
+  ) {     this.datoscompraCollection= afs.collection<ProductsCart>('venta');
+}
+  saveCompra(newCompra:  ProductsCart,total:number): void{
+    //newCompra.carrito=carrito;
+    newCompra.total= total;
+    this.datoscompraCollection.add(newCompra);
+  }
 
   addProductCart(product):void{  
     if(this.cart.has(product)){
