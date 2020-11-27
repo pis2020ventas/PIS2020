@@ -20,7 +20,7 @@ export class CartService {
     private toastr:ToastController,private afs: AngularFirestore
   ) {     this.datoscompraCollection= afs.collection<ProductsCart>('venta');
 }
-  saveCompra(newCompra:  ProductsCart, carrito:[] ,total:number): void{
+  saveCompra(newCompra:  ProductsCart, carrito ,total:number): void{
     newCompra.productos=carrito;
     newCompra.total= total;
     this.datoscompraCollection.add(newCompra);
