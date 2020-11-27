@@ -1,0 +1,52 @@
+/* CSS */
+
+img {
+    //margin-left: auto;
+    //margin-right: auto;
+    display: block;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+.cuantity{
+    text-align: center;
+    background-color: aliceblue;
+    color: black;
+}
+
+.cuantitybar{
+    background-color: #78751f;
+    flood-color: #78751f;
+}
+
+.info{
+    text-align: center;
+    color: #808289
+}
+
+.cartelements{
+    background-color: whitesmoke;
+    border-style: outset;
+}
+
+.tab2pg{
+    color: #808289
+}
+
+.titles{
+    color: white;
+}
+
+.buttons{
+    align-self: center;
+    width: 100%;
+}
+
+.total{
+    border-color:  #a67305;
+    border-radius: 10px;
+    border-style: double;
+    margin-left: 20%;
+    margin-right: 20%;
+    color: #78751f;
+}

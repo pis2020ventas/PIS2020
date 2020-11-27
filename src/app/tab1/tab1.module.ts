@@ -15,7 +15,9 @@ import { FirestoreService } from '../services/firestore/firestore.service';
     ExploreContainerComponentModule,
     Tab1PageRoutingModule
   ],
-  declarations: [Tab1Page]
+  declarations: [
+    Tab1Page
+  ]
 })
 export class Tab1PageModule implements OnInit {
 
@@ -29,6 +31,4 @@ export class Tab1PageModule implements OnInit {
    // this.posts$ = this.postSvc.getAllPosts();
   }
     tutorials: any;
-
-
 }
