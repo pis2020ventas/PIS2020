@@ -43,7 +43,7 @@ export class CartFormPage implements OnInit {
       return false;
     } else {
       
-      this.cartService.saveCompra(this.ionicForm.value,this.getKeys(this.cart),this.ptotal);
+     // this.cartService.saveCompra(this.ionicForm.value,this.getKeys(this.cart),this.ptotal);
       console.log(this.ionicForm.value)
     }
   }
