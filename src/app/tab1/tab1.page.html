@@ -3,8 +3,7 @@
     <ion-toolbar>
       <ion-title class="titles">NUESTROS PRODUCTOS</ion-title>
     </ion-toolbar>
-    <ion-button *ngIf="isLogged()" style = "text-align: end;" (click)="logout()"> Login </ion-button>
-    <ion-button *ngIf="!isLogged()" style = "text-align: end;" (click)="sendToLogin()"> Login </ion-button>
+    <ion-button style = "text-align: end;" (click)="isLogged()"> {{text}} </ion-button>
   </ion-header>
   <ion-content fullscreen>
     <ion-card *ngFor="let data of products" class="productcard">

@@ -6,6 +6,8 @@ import { CartService } from '../services/cart/cart.service';
 import { Product } from '../shared/product.interface';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-tab1',
@@ -15,17 +17,24 @@ import { Router } from '@angular/router';
 
 export class Tab1Page implements OnInit {t
   public products = Array<Product>();
-
+  private isLooged;
+  private text;
   constructor(
     private dataApis: FirestoreService, 
     public cartService: CartService,
     private afauth: AngularFireAuth,
-    private router: Router) {}
+    private router: Router) {
+      if(this.afauth.currentUser != null) {
+        this.text="Login";
+        this.isLooged = false;
+      } else {
+        this.text="Logout ";
+        this.isLooged = true;
+      }
+    }
 
   ngOnInit() {
    this.getAllProducts();
-   
-   //this.products = this.dataApis.getAllProducts();
   }
 
   getAllProducts():void{
@@ -39,7 +48,18 @@ export class Tab1Page implements OnInit {t
   }
 
   isLogged(){
-    this.afauth.authState != null ?  true :false  
+    //console.log('is ',this.isLooged);
+    if(this.isLooged) {
+      this.isLooged=!this.isLooged;
+      this.text="Logout ";
+      this.sendToLogin();
+      return true;
+    } else {
+      this.logout();
+      this.isLooged=!this.isLooged;
+      this.text="Login";
+    return false;
+    } 
   }
   sendToLogin(){
      this.router.navigate(['/login']);
