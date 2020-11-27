@@ -14,7 +14,7 @@ export class Tab2Page {
   constructor(public cartService: CartService, public router: Router) {}
 
   ngOnInit() {
-    this.cart = this.cartService.getCart();
+    this.cart = this.cartService.getCartMap();
   }
 
   removeProductCart(product):void{  

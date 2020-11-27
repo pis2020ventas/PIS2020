@@ -14,13 +14,14 @@ import { ProductsCart } from 'src/app/shared/products-cart.interface';
 export class CartService {
   public cart = new Map();
   private datoscompraCollection: AngularFirestoreCollection<ProductsCart>;
+  keys = [];
 
   constructor(
     private toastr:ToastController,private afs: AngularFirestore
   ) {     this.datoscompraCollection= afs.collection<ProductsCart>('venta');
 }
-  saveCompra(newCompra:  ProductsCart,total:number): void{
-    //newCompra.carrito=carrito;
+  saveCompra(newCompra:  ProductsCart, carrito:[] ,total:number): void{
+    newCompra.productos=carrito;
     newCompra.total= total;
     this.datoscompraCollection.add(newCompra);
   }
@@ -45,8 +46,7 @@ export class CartService {
   lessProductCart(product):void{
     this.cart.set(product, this.cart.get(product) - 1);
   }
-
-  getCart(){
+  getCartMap(){
     return this.cart;
   }
   

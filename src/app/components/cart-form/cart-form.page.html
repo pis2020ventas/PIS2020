@@ -81,7 +81,7 @@
       style="color: #ed1b24;"
       *ngIf="isSubmitted && errorControl.direccion.errors?.minlength"
     >
-      El nombre debe tener al menos 5 carácteres.
+      La dirección debe tener al menos 5 carácteres.
     </span>
     <ion-item lines="full">
       <ion-label position="floating">Teléfono:</ion-label>
@@ -106,15 +106,27 @@
     >
       Sólo son permitidos valores númericos.
     </span>
-    <!--div id="carritoc">
-            <h2> Lista de Productos a comprar:</h2>
-            <ul>
-                <li class="list-group-item" *ngFor="let carritoc of carritoc">
-                    {{carritoc}}
-                </li>
-            </ul>
-
-        </!--div-->
+    <div id="carritoc">
+      <h2>Lista de Productos a comprar:</h2>
+      <ul>
+        <ion-card *ngFor="let product of getKeys(cart)" class="cartelements">
+          <ion-item>
+            <ion-thumbnail>
+              <img :src="{{product.imagen}}" />
+            </ion-thumbnail>
+            <ion-label class="cuantity">
+              {{ product.nombre }}
+            </ion-label>
+            <ion-label class="cuantity">
+              Cantidad : {{ cart.get(product) }}
+            </ion-label>
+          </ion-item>
+          <ion-card-header class="info">
+            Subtotal: {{ product.precio * cart.get(product) }} Bs.
+          </ion-card-header>
+        </ion-card>
+      </ul>
+    </div>
     <h2>Precio total: {{ptotal}} Bs.</h2>
 
     <ion-row>
