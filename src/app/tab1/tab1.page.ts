@@ -20,16 +20,15 @@ import { User } from '../shared/user';
 
 export class Tab1Page implements OnInit {t
   public products = Array<Product>();
-  private isLooged;
+  private isLooging;
   private currentuser;
   private text;
+
   constructor(
     private dataApis: FirestoreService, 
     public cartService: CartService,
     private afauth: AngularFireAuth,
-    private router: Router) {
-      
-    }
+    private router: Router) {}
 
   ngOnInit() {
    this.getAllProducts();
@@ -38,6 +37,7 @@ export class Tab1Page implements OnInit {t
 
   checkIfUserExists(){
     this.afauth.currentUser.then((data)=>{
+      this.isLooging =false;
       if(data==null) {
         this.text="Login";
         this.currentuser=" ";
@@ -58,38 +58,6 @@ export class Tab1Page implements OnInit {t
     this.cartService.addProductCart(product);
   }
 
-  buttonLoginout() {
-    const user = this.getUser();
-    console.log("yey" + user);
-  }
-
-  isLogged(){
-    var confirm = false;
-    var user = "";
-    var test = 0;
-     this.afauth.currentUser.then((data)=>{
-      if(data==null) {
-        confirm = false;
-        this.sendToLogin();
-        test = 1;
-      } else {
-        test = 2;
-        confirm = true;
-        user=data.displayName;
-        this.logout();
-        this.text="Login";
-      }
-      console.log("data",test);
-    }).then(()=>{
-      this.currentuser=user;
-      console.log("user",user);
-      if(confirm) {
-        //this.currentuser=data.displayName;
-        this.text="Logout";
-        }
-        this.buttonLoginout();
-    });
-  }
   
   sendToLogin(){
     this.router.navigate(['/login']);
@@ -101,8 +69,27 @@ export class Tab1Page implements OnInit {t
     });
   }
 
-  async getUser(){
-    return await this.afauth.currentUser;
-  }
+  isLogged(){
+    this.afauth.currentUser.then((data)=>{
+     if(data == null) { //no user then go to Login
+       this.sendToLogin();
+       this.isLooging=true;
+     } else { //If logged, logout
+       this.logout();
+       this.text = "Login";
+       this.currentuser = "";
+       this.isLooging=false;
+     }
+   });
+ }
 
+  loggingMethod() {
+    this.afauth.currentUser.then((data)=> {
+      if(data!=null) {
+        this.currentuser = data.displayName;
+        this.text = "Log Out";
+      }
+      this.isLooging=false;
+    });
+  }
 }

@@ -72,23 +72,6 @@ export class LoginPage implements OnInit {
     }
   }
 
-  async onLoginFacebook()
-  {
-    try {
-      const user = await this.auth.loginfacebook();
-      if(user) {
-        const isVerified = this.auth.isEmailVerified(user);
-        if (isVerified) {
-          this.onLoginRedirect(isVerified);
-        } else {
-          this.toast('Please Verify your email', 'danger');
-        }
-      }
-    } catch (error) {
-      console.log('Error->',error);
-    }
-  }
-
   onLoginRedirect(isVerified: boolean): void
   {
     this.router.navigate(['/']);

@@ -1,13 +1,18 @@
 <ion-app>
-  
-  <ion-header translucent>
+  <ion-header *ngIf="!isLooging" translucent>
     <ion-toolbar>
-      <ion-title class="titles">NUESTROS PRODUCTOS</ion-title>
+      <ion-title class="titles">NUESTROS PRODUCTOS1</ion-title>
       <ion-card-subtitle class="titles">{{currentuser}}</ion-card-subtitle>
     </ion-toolbar>
     <ion-button style = "text-align: end;" (click)="isLogged()"> {{text}} </ion-button>
   </ion-header>
-  <ion-content fullscreen>
+  <ion-header *ngIf="isLooging" translucent>
+    <ion-toolbar>
+      <ion-title class="titles">NUESTROS PRODUCTOS2</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content *ngIf="!isLooging" fullscreen>
     <ion-card *ngFor="let data of products" class="productcard">
       <img :src="{{data.imagen}}" />
       <ion-card-header>
@@ -24,7 +29,8 @@
       </ion-card-content>
     </ion-card>
   </ion-content>
-  <script type="text/javascript">
-    console.log("try1");
-  </script>
+
+  <ion-content *ngIf="isLooging" fullscreen>
+    <div *ngIf="isLooging; then loggingMethod() else loggingMethod()"></div>
+  </ion-content>
 </ion-app>
