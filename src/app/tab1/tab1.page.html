@@ -1,7 +1,9 @@
 <ion-app>
+  
   <ion-header translucent>
     <ion-toolbar>
       <ion-title class="titles">NUESTROS PRODUCTOS</ion-title>
+      <ion-card-subtitle class="titles">{{currentuser}}</ion-card-subtitle>
     </ion-toolbar>
     <ion-button style = "text-align: end;" (click)="isLogged()"> {{text}} </ion-button>
   </ion-header>
@@ -22,4 +24,7 @@
       </ion-card-content>
     </ion-card>
   </ion-content>
+  <script type="text/javascript">
+    console.log("try1");
+  </script>
 </ion-app>

@@ -8,6 +8,9 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { first } from 'rxjs/operators';
+import { Console } from 'console';
+import { LoadingController } from '@ionic/angular';
+import { User } from '../shared/user';
 
 @Component({
   selector: 'app-tab1',
@@ -18,23 +21,31 @@ import { first } from 'rxjs/operators';
 export class Tab1Page implements OnInit {t
   public products = Array<Product>();
   private isLooged;
+  private currentuser;
   private text;
   constructor(
     private dataApis: FirestoreService, 
     public cartService: CartService,
     private afauth: AngularFireAuth,
     private router: Router) {
-      if(this.afauth.currentUser != null) {
-        this.text="Login";
-        this.isLooged = false;
-      } else {
-        this.text="Logout ";
-        this.isLooged = true;
-      }
+      
     }
 
   ngOnInit() {
    this.getAllProducts();
+   this.checkIfUserExists();
+  }
+
+  checkIfUserExists(){
+    this.afauth.currentUser.then((data)=>{
+      if(data==null) {
+        this.text="Login";
+        this.currentuser=" ";
+      } else {
+        this.currentuser=data.displayName;
+        this.text="Logout ";
+      }
+    });
   }
 
   getAllProducts():void{
@@ -47,26 +58,51 @@ export class Tab1Page implements OnInit {t
     this.cartService.addProductCart(product);
   }
 
+  buttonLoginout() {
+    const user = this.getUser();
+    console.log("yey" + user);
+  }
+
   isLogged(){
-    //console.log('is ',this.isLooged);
-    if(this.isLooged) {
-      this.isLooged=!this.isLooged;
-      this.text="Logout ";
-      this.sendToLogin();
-      return true;
-    } else {
-      this.logout();
-      this.isLooged=!this.isLooged;
-      this.text="Login";
-    return false;
-    } 
+    var confirm = false;
+    var user = "";
+    var test = 0;
+     this.afauth.currentUser.then((data)=>{
+      if(data==null) {
+        confirm = false;
+        this.sendToLogin();
+        test = 1;
+      } else {
+        test = 2;
+        confirm = true;
+        user=data.displayName;
+        this.logout();
+        this.text="Login";
+      }
+      console.log("data",test);
+    }).then(()=>{
+      this.currentuser=user;
+      console.log("user",user);
+      if(confirm) {
+        //this.currentuser=data.displayName;
+        this.text="Logout";
+        }
+        this.buttonLoginout();
+    });
   }
+  
   sendToLogin(){
-     this.router.navigate(['/login']);
+    this.router.navigate(['/login']);
   }
+
   logout(){
     this.afauth.signOut().then(() => {
       this.router.navigate(['/']);
     });
   }
+
+  async getUser(){
+    return await this.afauth.currentUser;
+  }
+
 }
