@@ -54,31 +54,10 @@ export class CartFormPage implements OnInit {
     this.geolocation
       .getCurrentPosition()
       .then((resp) => {
-        let latLng = new google.maps.LatLng(
-          resp.coords.latitude,
-          resp.coords.longitude
-        );
+     
         this.lat = resp.coords.latitude.toString();
-        console.log("latitud: "+this.lat);
         this.long = resp.coords.longitude.toString();
-                console.log("longitud: "+this.long);
 
-        let mapOptions = {
-          center: latLng,
-          zoom: 15,
-          mapTypeId: google.maps.MapTypeId.ROADMAP,
-        };
-
-        this.map = new google.maps.Map(
-          document.getElementById("map1"),
-          mapOptions
-        );
-        this.map.addListener("tilesloaded", () => {
-          this.lat = this.map.center.lat();
-          this.long = this.map.center.lng();
-
-         // this.loadMarkers();
-        });
       })
       .catch((error) => {
         console.log("Error getting location", error);
@@ -96,12 +75,10 @@ export class CartFormPage implements OnInit {
     if (!this.ionicForm.valid) {
       return false;
     } else {
-      
         let name = this.name;
         let address = this.direction;
         let telf = this.telephone;
-        let nit = this.nits,
-        uid = name;
+        let nit = this.nits
 
         this.createSale(
           {
@@ -115,11 +92,12 @@ export class CartFormPage implements OnInit {
               nit: nit,
               productos : this.getKeys(this.cart),
               total : this.ptotal
-        },uid);
+        });
     }
   }
-  createSale(sale : Sale, uid:any){
-    this.firestoreService.insertData(uid, sale);
+
+  createSale(sale : Sale){
+    this.firestoreService.insertData(sale);
   }
   get nombre() { return this.ionicForm.get('nombre'); }
   get direccion() { return this.ionicForm.get('direccion'); }

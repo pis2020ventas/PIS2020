@@ -1,13 +1,10 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
-
 import { Product } from 'src/app/shared/product.interface';
-
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Sale } from 'src/app/shared/sale.interface';
-
-
+import { ToastController } from '@ionic/angular';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +14,7 @@ export class FirestoreService {
   private bookDoc: AngularFirestoreDocument<Product>;
   private book: Observable<Product>;
 
-  constructor(private afs: AngularFirestore) {
+  constructor(private toastr:ToastController, private afs: AngularFirestore) {
         this.productsCollection = afs.collection<Product>('comida');
   }
 
@@ -45,8 +42,9 @@ export class FirestoreService {
         return data;
       }
     }));}
-  public insertData(id, sale : Sale){
-    this.afs.doc('venta'+'/'+id).set({
+  public insertData(sale : Sale){
+    let ids = this.afs.createId();
+    this.afs.doc('venta'+'/'+ids).set({
         position: {
           lat: sale.position.lat,
           lng: sale.position.lng
@@ -58,10 +56,23 @@ export class FirestoreService {
         nit : sale.nit,
         estado : "Listo para recoger",
         fechahorapedido : new Date(),
-        total: sale.total
+        total: sale.total,
+        moto: ""
     });
-  }
+    
+    this.toast('\Compra realizada','danger');
 
+  }
+  async toast(message,status) 
+  {
+    const toast = await this.toastr.create({
+      message:message,
+      color: status,
+      duration: 2000,
+      animated: true
+    });
+    toast.present();
+  }
 
   
 }
