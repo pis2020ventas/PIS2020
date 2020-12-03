@@ -1,29 +1,17 @@
 import { Injectable } from '@angular/core';
-import { Console } from 'console';
-import { map } from 'rxjs/operators';
-import { element } from 'protractor';
-import { MapOperator } from 'rxjs/internal/operators/map';
-import { LiteralMapEntry } from '@angular/compiler/src/output/output_ast';
 import { ToastController } from '@ionic/angular'
-import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
-import { ProductsCart } from 'src/app/shared/products-cart.interface';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
   public cart = new Map();
-  private datoscompraCollection: AngularFirestoreCollection<ProductsCart>;
   keys = [];
+  angularFirestore: any;
 
-  constructor(
-    private toastr:ToastController,private afs: AngularFirestore
-  ) {     this.datoscompraCollection= afs.collection<ProductsCart>('venta');
-}
-  saveCompra(newCompra:  ProductsCart, carrito:[] ,total:number): void{
-    newCompra.productos=carrito;
-    newCompra.total= total;
-    this.datoscompraCollection.add(newCompra);
+  constructor(private toastr:ToastController,private afs: AngularFirestore) 
+  {  
   }
 
   addProductCart(product):void{  

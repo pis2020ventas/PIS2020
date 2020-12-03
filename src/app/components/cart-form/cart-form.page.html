@@ -8,7 +8,11 @@
   <form [formGroup]="ionicForm" (ngSubmit)="submitForm()" novalidate>
     <ion-item lines="full">
       <ion-label position="floating">Nombre:</ion-label>
-      <ion-input formControlName="nombre" type="text"></ion-input>
+      <ion-input
+        [(ngModel)]="name"
+        formControlName="nombre"
+        type="text"
+      ></ion-input>
     </ion-item>
     <span
       style="color: #ed1b24;"
@@ -24,27 +28,10 @@
     >
       El nombre debe tener al menos 5 carácteres
     </span>
-
-    <!--ion-item lines="full">
-      <ion-label position="floating">Email</ion-label>
-      <ion-input formControlName="email" type="email"></ion-input>
-    </!--ion-item>
-    <span
-      class="error ion-padding"
-      *ngIf="isSubmitted && errorControl.email.errors?.required"
-    >
-      Email is required.
-    </span>
-    <span--
-      class="error ion-padding"
-      *ngIf="isSubmitted && errorControl.email.errors?.pattern"
-    >
-      Please provide valid email id.
-    </span-->
-
     <ion-item lines="full">
       <ion-label position="floating">Nit:</ion-label>
       <ion-input
+        [(ngModel)]="nits"
         maxlength="10"
         formControlName="nit"
         type="text"
@@ -67,7 +54,11 @@
     </span>
     <ion-item lines="full">
       <ion-label position="floating">Dirección:</ion-label>
-      <ion-input formControlName="direccion" type="text"></ion-input>
+      <ion-input
+        [(ngModel)]="direction"
+        formControlName="direccion"
+        type="text"
+      ></ion-input>
     </ion-item>
     <span
       class="error ion-padding"
@@ -83,9 +74,12 @@
     >
       La dirección debe tener al menos 5 carácteres.
     </span>
+    <div id="map1"></div>
+
     <ion-item lines="full">
       <ion-label position="floating">Teléfono:</ion-label>
       <ion-input
+        [(ngModel)]="telephone"
         maxlength="10"
         formControlName="telefono"
         type="text"
