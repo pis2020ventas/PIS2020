@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
 
 import { Product } from 'src/app/shared/product.interface';
+import { Sucursal } from 'src/app/shared/sucursal.interface';
 
 import { Observable } from 'rxjs';
 import { map, finalize } from 'rxjs/operators';
@@ -13,12 +14,13 @@ import { AngularFireStorage } from '@angular/fire/storage';
 })
 export class FirestoreService {
   private productsCollection: AngularFirestoreCollection<Product>;
+  private sucursalesCollection: AngularFirestoreCollection<Sucursal>;
   private bookDoc: AngularFirestoreDocument<Product>;
   private book: Observable<Product>;
 
   constructor(private afs: AngularFirestore) {
         this.productsCollection = afs.collection<Product>('comida');
-
+        this.sucursalesCollection = afs.collection<Sucursal>('sucursales');
   }
 
   
@@ -46,6 +48,17 @@ export class FirestoreService {
       }
     }));  }
 
-
+    getSucursales(){
+      return this.sucursalesCollection.snapshotChanges()
+      .pipe(
+        map(actions =>
+          actions.map(a => {
+            const data = a.payload.doc.data() as Sucursal;
+            const id = a.payload.doc.id;
+            return { id, ...data };
+          })
+        )
+      );
+    }
   
 }

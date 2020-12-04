@@ -3,6 +3,11 @@
     <ion-toolbar>
       <ion-title class="titles">NUESTROS PRODUCTOS</ion-title>
     </ion-toolbar>
+    <ion-item>
+      <ion-select value=0 interface="popover" class="selectSucursal">
+        <ion-select-option *ngFor="let suc of sucursales" value={{suc.id}}>{{suc.name}} - {{suc.address}}</ion-select-option>
+      </ion-select>
+    </ion-item>
   </ion-header>
   <ion-content fullscreen>
     <ion-card *ngFor="let data of products" class="productcard">

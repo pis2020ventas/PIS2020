@@ -4,6 +4,8 @@ import { OnInit } from '@angular/core';
 import { FirestoreService } from '../services/firestore/firestore.service';
 import { CartService } from '../services/cart/cart.service';
 import { Product } from '../shared/product.interface';
+import { Sucursal } from '../shared/sucursal.interface';
+
 
 @Component({
   selector: 'app-tab1',
@@ -13,11 +15,13 @@ import { Product } from '../shared/product.interface';
 
 export class Tab1Page implements OnInit {t
   public products = Array<Product>();
+  public sucursales = Array<Sucursal>();
 
   constructor(private dataApis: FirestoreService, public cartService: CartService) {}
 
   ngOnInit() {
-   this.getAllProducts();
+    this.getSucursales();
+    this.getAllProducts();
    
    //this.products = this.dataApis.getAllProducts();
   }
@@ -30,6 +34,12 @@ export class Tab1Page implements OnInit {t
 
   addProductCart(product):void{  
     this.cartService.addProductCart(product);
+  }
+
+  getSucursales():void{
+    this.dataApis.getSucursales().subscribe(sucursales =>{
+      this.sucursales=sucursales;
+    })
   }
 
 }
