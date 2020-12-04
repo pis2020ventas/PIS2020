@@ -4,8 +4,9 @@
       <ion-title class="titles">NUESTROS PRODUCTOS</ion-title>
     </ion-toolbar>
     <ion-item>
-      <ion-select interface="popover" class="selectSucursal" placeholder="Elija una Sucursal" [(ngModel)]="sucursal" (ionChange)="getProductSucursal(sucursal)">
-        <ion-select-option *ngFor="let suc of sucursales" value={{suc.id}}>{{suc.name}} - {{suc.address}}</ion-select-option>
+      <ion-select [(ngModel)]="selectSucursal" interface="popover" (ionChange)="getProductSucursal(selectSucursal)">
+        <ion-select-option *ngFor="let suc of sucursales" value={{suc.id}}>{{suc.name}} - {{suc.address}}
+        </ion-select-option>
       </ion-select>
     </ion-item>
   </ion-header>
@@ -25,5 +26,12 @@
         </section>
       </ion-card-content>
     </ion-card>
+    <ion-item>
+      <ion-icon name="sad-outline"></ion-icon>
+      
+      <ion-content [fullscreen]="true" *ngIf="this.productsSuc.length == 0">
+        No se han encontrado productos, intenta más tarde.
+      </ion-content>
+    </ion-item>
   </ion-content>
 </ion-app>

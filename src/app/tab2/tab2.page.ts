@@ -35,7 +35,6 @@ export class Tab2Page {
 
   goToProducts(){
         this.router.navigate(['/cart-form']);
-
   }
 
 }

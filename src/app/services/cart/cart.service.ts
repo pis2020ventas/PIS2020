@@ -13,6 +13,7 @@ import { ProductsCart } from 'src/app/shared/products-cart.interface';
 })
 export class CartService {
   public cart = new Map();
+  public sucursal:string;
   private datoscompraCollection: AngularFirestoreCollection<ProductsCart>;
   keys = [];
 
@@ -56,6 +57,10 @@ export class CartService {
       total += product.precio * cantidad; 
     }
     return total;
+  }
+
+  setSucursal(sucursal:string):void{
+    this.sucursal = sucursal;
   }
 
   async toast(message,status) 
