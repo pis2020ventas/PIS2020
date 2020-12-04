@@ -15,6 +15,7 @@ import { AngularFireStorage } from '@angular/fire/storage';
 export class FirestoreService {
   private productsCollection: AngularFirestoreCollection<Product>;
   private sucursalesCollection: AngularFirestoreCollection<Sucursal>;
+  private productsSucursalCollection: AngularFirestoreCollection<Product>;
   private bookDoc: AngularFirestoreDocument<Product>;
   private book: Observable<Product>;
 
@@ -54,6 +55,20 @@ export class FirestoreService {
         map(actions =>
           actions.map(a => {
             const data = a.payload.doc.data() as Sucursal;
+            const id = a.payload.doc.id;
+            return { id, ...data };
+          })
+        )
+      );
+    }
+
+    getProductoSucursal(id: string){
+      this.productsSucursalCollection =  this.afs.collection<Product>(`inventario/${id}/comida/`);
+      return this.productsSucursalCollection.snapshotChanges()
+      .pipe(
+        map(actions =>
+          actions.map(a => {
+            const data = a.payload.doc.data() as Product;
             const id = a.payload.doc.id;
             return { id, ...data };
           })

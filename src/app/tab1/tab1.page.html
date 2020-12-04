@@ -4,13 +4,13 @@
       <ion-title class="titles">NUESTROS PRODUCTOS</ion-title>
     </ion-toolbar>
     <ion-item>
-      <ion-select value=0 interface="popover" class="selectSucursal">
+      <ion-select interface="popover" class="selectSucursal" placeholder="Elija una Sucursal" [(ngModel)]="sucursal" (ionChange)="getProductSucursal(sucursal)">
         <ion-select-option *ngFor="let suc of sucursales" value={{suc.id}}>{{suc.name}} - {{suc.address}}</ion-select-option>
       </ion-select>
     </ion-item>
   </ion-header>
   <ion-content fullscreen>
-    <ion-card *ngFor="let data of products" class="productcard">
+    <ion-card *ngFor="let data of productsSuc" class="productcard">
       <img :src="{{data.imagen}}" />
       <ion-card-header>
         <ion-card-subtitle>PRECIO: {{data.precio}} bs.</ion-card-subtitle>

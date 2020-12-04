@@ -16,7 +16,7 @@ import { Sucursal } from '../shared/sucursal.interface';
 export class Tab1Page implements OnInit {t
   public products = Array<Product>();
   public sucursales = Array<Sucursal>();
-
+  public productsSuc = Array<Product>();
   constructor(private dataApis: FirestoreService, public cartService: CartService) {}
 
   ngOnInit() {
@@ -41,5 +41,9 @@ export class Tab1Page implements OnInit {t
       this.sucursales=sucursales;
     })
   }
-
+  getProductSucursal(id:string):void{
+    this.dataApis.getProductoSucursal(id).subscribe(productsSuc =>{
+      this.productsSuc=productsSuc;
+  })
+  }
 }
