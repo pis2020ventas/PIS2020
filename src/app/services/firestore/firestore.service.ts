@@ -17,6 +17,7 @@ export class FirestoreService {
   private sucursalesCollection: AngularFirestoreCollection<Sucursal>;
   private productsSucursalCollection: AngularFirestoreCollection<Product>;
   private bookDoc: AngularFirestoreDocument<Product>;
+  private sucDoc : AngularFirestoreDocument<Sucursal>;
   private book: Observable<Product>;
 
   constructor(private afs: AngularFirestore) {
@@ -61,6 +62,18 @@ export class FirestoreService {
         )
       );
     }
+
+    getOneSucursal(id: string){
+      this.sucDoc = this.afs.doc<Sucursal>(`sucursales/${id}`);
+      return this.sucDoc.snapshotChanges().pipe(map(action => {
+        if (action.payload.exists === false) {
+          return null;
+        } else {
+          const data = action.payload.data() as Sucursal;
+          data.id = action.payload.id;
+          return data;
+        }
+      }));  }
 
     getProductoSucursal(id: string){
       this.productsSucursalCollection =  this.afs.collection<Product>(`inventario/${id}/comida/`);

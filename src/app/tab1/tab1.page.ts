@@ -23,7 +23,7 @@ export class Tab1Page implements OnInit {
   public sucursales = Array<Sucursal>();
   public productsSuc = Array<Product>();
   private loading: HTMLIonLoadingElement;
-  selectSucursal: String;
+  selectSucursal: any;
   constructor(private dataApis: FirestoreService, public cartService: CartService) { }
 
   ngOnInit() {
@@ -46,7 +46,6 @@ export class Tab1Page implements OnInit {
       this.sucursales = sucursales;
       this.selectSucursal = this.sucursales[0].id;
     })
-
   }
 
   getProductSucursal(id: string): void {
