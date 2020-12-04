@@ -18,12 +18,12 @@ import { LoadingController } from '@ionic/angular';
 })
 
 export class Tab1Page implements OnInit {
-    t
+  t
   public products = Array<Product>();
   public sucursales = Array<Sucursal>();
   public productsSuc = Array<Product>();
   private loading: HTMLIonLoadingElement;
-  selectSucursal: Component;
+  selectSucursal: String;
   constructor(private dataApis: FirestoreService, public cartService: CartService) { }
 
   ngOnInit() {

@@ -11,30 +11,31 @@ import { Router } from '@angular/router';
 export class Tab2Page {
   public cart = new Map();
 
-  constructor(public cartService: CartService, public router: Router) {}
+  constructor(public cartService: CartService, public router: Router) { }
 
   ngOnInit() {
     this.cart = this.cartService.getCartMap();
   }
 
-  removeProductCart(product):void{  
+  removeProductCart(product): void {
     this.cartService.removeProductCart(product);
   }
 
-  moreProductCart(product):void{
+  moreProductCart(product): void {
     this.cartService.moreProductCart(product);
   }
 
-  lessProductCart(product):void{
+  lessProductCart(product): void {
     this.cartService.lessProductCart(product);
   }
 
-  getKeys(map){
+  getKeys(map) {
     return Array.from(map.keys());
   }
 
-  goToProducts(){
-        this.router.navigate(['/cart-form']);
+
+  goToProducts() {
+    this.router.navigate(['/cart-form']);
   }
 
 }

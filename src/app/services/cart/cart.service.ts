@@ -13,60 +13,60 @@ import { ProductsCart } from 'src/app/shared/products-cart.interface';
 })
 export class CartService {
   public cart = new Map();
-  public sucursal:string;
+  public sucursal: string;
   private datoscompraCollection: AngularFirestoreCollection<ProductsCart>;
   keys = [];
 
   constructor(
-    private toastr:ToastController,private afs: AngularFirestore
-  ) {     this.datoscompraCollection= afs.collection<ProductsCart>('venta');
-}
-  saveCompra(newCompra:  ProductsCart, carrito:[] ,total:number): void{
-    newCompra.productos=carrito;
-    newCompra.total= total;
+    private toastr: ToastController, private afs: AngularFirestore
+  ) {
+    this.datoscompraCollection = afs.collection<ProductsCart>('venta');
+  }
+  saveCompra(newCompra: ProductsCart, carrito: [], total: number): void {
+    newCompra.productos = carrito;
+    newCompra.total = total;
     this.datoscompraCollection.add(newCompra);
   }
 
-  addProductCart(product):void{  
-    if(this.cart.has(product)){
-      this.cart.set(product,(this.cart.get(product) +1));
-    }else{
+  addProductCart(product): void {
+    if (this.cart.has(product)) {
+      this.cart.set(product, (this.cart.get(product) + 1));
+    } else {
       this.cart.set(product, 1);
     }
-    this.toast('\"'+product.nombre+' x '+(this.cart.get(product))+'\" añadido al Carrito','primary');
+    this.toast('\"' + product.nombre + ' x ' + (this.cart.get(product)) + '\" añadido al Carrito', 'primary');
   }
 
-  removeProductCart(product):void{  
+  removeProductCart(product): void {
     this.cart.delete(product);
   }
 
-  moreProductCart(product):void{
+  moreProductCart(product): void {
     this.cart.set(product, this.cart.get(product) + 1);
   }
 
-  lessProductCart(product):void{
+  lessProductCart(product): void {
     this.cart.set(product, this.cart.get(product) - 1);
   }
-  getCartMap(){
+  getCartMap() {
     return this.cart;
   }
-  
-  getTotal(){
+
+  getTotal() {
     var total: number = 0;
-    for(let [product, cantidad] of this.cart) {
-      total += product.precio * cantidad; 
+    for (let [product, cantidad] of this.cart) {
+      total += product.precio * cantidad;
     }
     return total;
   }
 
-  setSucursal(sucursal:string):void{
+  setSucursal(sucursal: string): void {
     this.sucursal = sucursal;
   }
 
-  async toast(message,status) 
-  {
+  async toast(message, status) {
     const toast = await this.toastr.create({
-      message:message,
+      message: message,
       position: 'top',
       color: status,
       duration: 2000,
