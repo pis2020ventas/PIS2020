@@ -1,9 +1,12 @@
 <ion-app>
   <ion-header [translucent]="true">
     <ion-toolbar>
-      <ion-title class="titles">
+      <ion-card>
+      <ion-card-title class="titles">
         CARRITO
-      </ion-title>
+      </ion-card-title>
+      <ion-card-subtitle name="subtitleSuc" >{{sucursalCartText}}</ion-card-subtitle>
+    </ion-card>
     </ion-toolbar>
   </ion-header>
   <ion-content [fullscreen]="true" *ngIf="this.cart.size > 0" class="tab2pg">
