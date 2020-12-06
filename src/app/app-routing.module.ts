@@ -30,12 +30,12 @@ const routes: Routes = [
     loadChildren: () => import('./components/forgot-password/forgot-password.module').then( m => m.ForgotPasswordPageModule)
   },
   {
-    path: '**',
-    loadChildren: () => import('./components/page-not-found/page-not-found-routing.module').then( m => m.PageNotFoundPageRoutingModule)
-  },
-  {
     path: 'cart-form',
     loadChildren: () => import('./components/cart-form/cart-form.module').then( m => m.CartFormPageModule)
+  },
+  {
+    path: '**',
+    loadChildren: () => import('./components/page-not-found/page-not-found-routing.module').then( m => m.PageNotFoundPageRoutingModule)
   }
 
 
