@@ -4,17 +4,17 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { AdministratorPageRoutingModule } from './administrator-routing.module';
+import { PageNotFoundPageRoutingModule } from './page-not-found-routing.module';
 
-import { AdministratorPage } from './administrator.page';
+import { PageNotFoundPage } from './page-not-found.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    AdministratorPageRoutingModule
+    PageNotFoundPageRoutingModule
   ],
-  declarations: [AdministratorPage]
+  declarations: [PageNotFoundPage]
 })
-export class AdministratorPageModule {}
+export class PageNotFoundPageModule {}

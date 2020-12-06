@@ -10,6 +10,11 @@ import { identifierName } from '@angular/compiler';
 import { Console } from 'console';
 import { LoadingController } from '@ionic/angular';
 
+import { AngularFireAuth } from '@angular/fire/auth';
+import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
+import { first } from 'rxjs/operators';
+import { User } from '../shared/user';
 
 @Component({
   selector: 'app-tab1',
@@ -23,11 +28,18 @@ export class Tab1Page implements OnInit {
   public sucursales = Array<Sucursal>();
   public productsSuc = Array<Product>();
   private loading: HTMLIonLoadingElement;
+  private isLooging;
+  private currentuser;
+  private text;
   selectSucursal: any;
-  constructor(private dataApis: FirestoreService, public cartService: CartService) { }
-
+  constructor(private dataApis: FirestoreService, public cartService: CartService,
+    private afauth: AngularFireAuth,
+    private router: Router) { }
+  
   ngOnInit() {
     this.getSucursales();
+    this.getAllProducts();
+    this.checkIfUserExists();
     //this.getAllProducts();
   }
 
@@ -58,5 +70,52 @@ export class Tab1Page implements OnInit {
 
   cleanCart(): void {
     this.cartService.cart.clear();
+  } 
+  
+  checkIfUserExists(){
+    this.afauth.currentUser.then((data)=>{
+      this.isLooging =false;
+      if(data==null) {
+        this.text="Login";
+        this.currentuser=" ";
+      } else {
+        this.currentuser=data.displayName;
+        this.text="Logout ";
+      }
+    });
+  }
+
+  sendToLogin(){
+    this.router.navigate(['/login']);
+  }
+
+  logout(){
+    this.afauth.signOut().then(() => {
+      this.router.navigate(['/']);
+    });
+  }
+
+  isLogged(){
+    this.afauth.currentUser.then((data)=>{
+     if(data == null) { //no user then go to Login
+       this.sendToLogin();
+       this.isLooging=true;
+     } else { //If logged, logout
+       this.logout();
+       this.text = "Login";
+       this.currentuser = "";
+       this.isLooging=false;
+     }
+   });
+ }
+
+  loggingMethod() {
+    this.afauth.currentUser.then((data)=> {
+      if(data!=null) {
+        this.currentuser = data.displayName;
+        this.text = "Log Out";
+      }
+      this.isLooging=false;
+    });
   }
 }

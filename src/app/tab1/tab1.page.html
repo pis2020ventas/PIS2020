@@ -1,8 +1,10 @@
 <ion-app>
-  <ion-header translucent>
+  <ion-header *ngIf="!isLooging" translucent>
     <ion-toolbar>
       <ion-title class="titles">NUESTROS PRODUCTOS</ion-title>
+      <ion-card-subtitle class="titles">{{currentuser}}</ion-card-subtitle>
     </ion-toolbar>
+    <ion-button style = "text-align: end;" (click)="isLogged()"> {{text}} </ion-button>
     <ion-item>
       <ion-select [(ngModel)]="selectSucursal" interface="popover" (ionChange)="getProductSucursal(selectSucursal)">
         <ion-select-option *ngFor="let suc of sucursales" value={{suc.id}}>{{suc.name}} - {{suc.address}}
@@ -10,7 +12,13 @@
       </ion-select>
     </ion-item>
   </ion-header>
-  <ion-content fullscreen>
+  <ion-header *ngIf="isLooging" translucent>
+    <ion-toolbar>
+      <ion-title class="titles">NUESTROS PRODUCTOS</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content *ngIf="!isLooging" fullscreen>
     <ion-card *ngFor="let data of productsSuc" class="productcard">
       <img :src="{{data.imagen}}" />
       <ion-card-header>
@@ -28,10 +36,12 @@
     </ion-card>
     <ion-item>
       <ion-icon name="sad-outline"></ion-icon>
-      
       <ion-content [fullscreen]="true" *ngIf="this.productsSuc.length == 0">
         No se han encontrado productos, intenta más tarde.
       </ion-content>
     </ion-item>
   </ion-content>
+  <ion-content *ngIf="isLooging" fullscreen>
+    <div *ngIf="isLooging; then loggingMethod() else loggingMethod()"></div>
+  </ion-content>  
 </ion-app>
