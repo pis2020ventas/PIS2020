@@ -1,0 +1,33 @@
+.google{
+    --background: #DB4437;
+    margin: auto;
+    display: block;
+    text-align: center;
+}
+.faebook{
+    --background: #3b5998;
+}
+
+ion-item{
+    --background: white;
+    --color: black;
+}
+
+ion-card-content{
+    --background: white;
+    --color: black;
+}
+
+ion-button{
+    margin: 1rem;
+    display: block;
+    text-align: center;
+    --background: #78751f;
+}
+
+ion-card-title{
+    background-color: #78751f;
+    color: white;
+    text-align: center;
+    margin: 1rem;
+}
