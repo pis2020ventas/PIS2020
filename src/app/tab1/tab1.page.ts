@@ -23,7 +23,6 @@ import { User } from '../shared/user';
 })
 
 export class Tab1Page implements OnInit {
-  t
   public products = Array<Product>();
   public sucursales = Array<Sucursal>();
   public productsSuc = Array<Product>();

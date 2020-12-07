@@ -35,6 +35,13 @@ img {
 
 .titles{
     color: black;
+    ::before{
+        content:"hello";
+    }
+
+    ::after{
+        content:"goodby";
+    }
 }
 
 .buttons{

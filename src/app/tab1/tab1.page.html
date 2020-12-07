@@ -1,13 +1,18 @@
 <ion-app>
   <ion-header *ngIf="!isLooging" translucent>
-    <ion-toolbar>
+    <ion-toolbar class="headers">
       <ion-title class="titles">NUESTROS PRODUCTOS</ion-title>
-      <ion-card-subtitle class="titles">{{currentuser}}</ion-card-subtitle>
+      <ion-card-subtitle>{{currentuser}}</ion-card-subtitle>
     </ion-toolbar>
-    <ion-button style = "text-align: end;" (click)="isLogged()"> {{text}} </ion-button>
     <ion-item>
+      <ion-button (click)="isLogged()"> 
+        {{text}}
+       </ion-button>
+    </ion-item>
+    <ion-item class="dropdown"> 
       <ion-select [(ngModel)]="selectSucursal" interface="popover" (ionChange)="getProductSucursal(selectSucursal)">
-        <ion-select-option *ngFor="let suc of sucursales" value={{suc.id}}>{{suc.name}} - {{suc.address}}
+        <ion-select-option *ngFor="let suc of sucursales" value={{suc.id}}  class="dropdown">
+          {{suc.name}} - {{suc.address}}
         </ion-select-option>
       </ion-select>
     </ion-item>
@@ -18,7 +23,7 @@
     </ion-toolbar>
   </ion-header>
 
-  <ion-content *ngIf="!isLooging" fullscreen>
+  <ion-content *ngIf="!isLooging" fullscreen style="--background: antiquewhite">
     <ion-card *ngFor="let data of productsSuc" class="productcard">
       <img :src="{{data.imagen}}" />
       <ion-card-header>
@@ -34,9 +39,9 @@
         </section>
       </ion-card-content>
     </ion-card>
-    <ion-item>
-      <ion-icon name="sad-outline"></ion-icon>
-      <ion-content [fullscreen]="true" *ngIf="this.productsSuc.length == 0">
+    <ion-item *ngIf="this.productsSuc.length == 0">
+      <ion-icon name="sad-outline" ></ion-icon>
+      <ion-content [fullscreen]="true" Style="--color: white; --background:#a67305 " >
         No se han encontrado productos, intenta más tarde.
       </ion-content>
     </ion-item>
