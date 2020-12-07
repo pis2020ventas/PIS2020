@@ -1,31 +1,34 @@
 <ion-app>
   <ion-header [translucent]="true">
     <ion-toolbar>
-      <ion-card>
+      
       <ion-card-title class="titles">
         CARRITO
       </ion-card-title>
-      <ion-card-subtitle name="subtitleSuc" >{{sucursalCartText}}</ion-card-subtitle>
-    </ion-card>
+      <ion-card-subtitle name="subtitleSuc" class="titles">{{sucursalCartText}}</ion-card-subtitle>
+    
     </ion-toolbar>
   </ion-header>
-  <ion-content [fullscreen]="true" *ngIf="this.cart.size > 0" class="tab2pg">
+  <ion-content [fullscreen]="true" *ngIf="this.cart.size > 0" class="tab2pg" style="--background: antiquewhite">
     <ion-card *ngFor="let product of getKeys(cart)" class="cartelements">
       <ion-item>
-        <ion-thumbnail>
+        
           <img :src="{{product.imagen}}" />
-        </ion-thumbnail>
+        
         {{ product.nombre }}
+      </ion-item>
+      <ion-item>
         <ion-button
           (click)="lessProductCart(product)"
           [class.button-disabled]="cart.get(product) < 2"
+          class="less"
         >
           <ion-icon name="remove-circle-outline"></ion-icon>
         </ion-button>
         <ion-label class="cuantity">
           {{ cart.get(product) }}
         </ion-label>
-        <ion-button (click)="moreProductCart(product)">
+        <ion-button (click)="moreProductCart(product)" class="more">
           <ion-icon name="add-circle-outline"></ion-icon>
         </ion-button>
       </ion-item>
@@ -34,8 +37,7 @@
       </ion-card-header>
       <ion-button
         size="small"
-        color="danger"
-        class="buttons"
+        class="delete"
         (click)="removeProductCart(product)"
       >
         <ion-icon name="trash-outline"></ion-icon>
@@ -55,7 +57,7 @@
       </ion-button>
     </ion-card-header>
   </ion-content>
-  <ion-content [fullscreen]="true" *ngIf="this.cart.size == 0" style="--color: black;">
+  <ion-content [fullscreen]="true" *ngIf="this.cart.size == 0" style="--color: black; --background: antiquewhite">
     No tienes nada en tu carrito, intenta añadiendo algun producto
   </ion-content>
 </ion-app>

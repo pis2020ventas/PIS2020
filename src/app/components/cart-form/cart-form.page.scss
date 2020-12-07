@@ -9,3 +9,37 @@ ion-content{
     box-shadow: 0 10px 30px 0px rgba(57, 71, 82, 0.12);
   }
 }
+
+.cartelements{
+  margin: 1rem;
+  display: block;
+
+}
+
+.carritoc{
+  margin: 1rem;
+  display: block;
+}
+
+img {
+  //margin-left: auto;
+  //margin-right: auto;
+  display: block;
+  width: 20%;
+  margin: 1rem;
+}
+
+.total{
+  border-color:  #a67305;
+  border-radius: 10px;
+  border-style: double;
+  margin-left: 20%;
+  margin-right: 20%;
+  color: #78751f;
+  background-color: white;
+}
+
+.info{
+  text-align: center;
+  color: #78751f
+}
