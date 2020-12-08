@@ -67,7 +67,7 @@ export class FirestoreService {
       moto: ""
     });
 
-    this.toast('\Compra realizada', 'danger');
+    this.toast('\Compra realizada', 'primary');
   }
 
   async toast(message, status) {
@@ -75,6 +75,7 @@ export class FirestoreService {
       message: message,
       color: status,
       duration: 2000,
+
       animated: true
     });
     toast.present();
