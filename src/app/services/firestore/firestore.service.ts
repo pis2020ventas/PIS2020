@@ -111,7 +111,7 @@ export class FirestoreService {
   }
 
   getProductoSucursal(id: string) {
-    this.productsSucursalCollection = this.afs.collection<Product>(`inventario/${id}/comida/`);
+    this.productsSucursalCollection = this.afs.collection<Product>(`inventario/comida/${id}/`);
     return this.productsSucursalCollection.snapshotChanges()
       .pipe(
         map(actions =>
