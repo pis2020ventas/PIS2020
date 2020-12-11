@@ -114,6 +114,10 @@ export class Tab1Page implements OnInit {
         this.currentuser = data.displayName;
         this.text = "Log Out";
       }
+      else{
+        this.currentuser = "";
+        this.text = "Log In";
+      }
       this.isLooging=false;
     });
   }
