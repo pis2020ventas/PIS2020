@@ -141,7 +141,22 @@
         </ion-button>
       </ion-col>
     </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-button
+          type="submit"
+          color="danger"
+          expand="block"
+          (click)="goToHome()"
+        >
+          Cancelar
+        </ion-button>
+      </ion-col>
+    </ion-row>
   </form>
-  <h5>Elija la ubicación en el mapa:</h5>
+  <h3 class="location">Elija la ubicación en el mapa:</h3>
   <div id="map"></div>
+  <ion-card>
+    <div id="map"></div>
+  </ion-card>
 </ion-content>

@@ -1,32 +1,33 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Geolocation } from "@ionic-native/geolocation/ngx";
 import { FirestoreService } from "../../services/firestore/firestore.service";
 
-import { CartService } from 'src/app/services/cart/cart.service';
-import { Sale } from 'src/app/shared/sale.interface';
-import { AngularFireAuth } from '@angular/fire/auth';
-import { Router } from '@angular/router';
+import { CartService } from "src/app/services/cart/cart.service";
+import { Sale } from "src/app/shared/sale.interface";
+import { AngularFireAuth } from "@angular/fire/auth";
+import { Router } from "@angular/router";
 declare var google;
 let uid: any;
+import { AlertController } from "@ionic/angular";
 
 @Component({
-  selector: 'app-cart-form',
-  templateUrl: './cart-form.page.html',
-  styleUrls: ['./cart-form.page.scss'],
+  selector: "app-cart-form",
+  templateUrl: "./cart-form.page.html",
+  styleUrls: ["./cart-form.page.scss"],
 })
 export class CartFormPage implements OnInit {
   ionicForm: FormGroup;
   isSubmitted = false;
 
-  ptotal:number
+  ptotal: number;
   map: any;
-  position=[];
+  position = [];
   name: string;
   nits: string;
-  user:string;
+  user: string;
   direction: string;
-  telephone : number;
+  telephone: number;
   cart = new Map();
   lat: string;
   long: string;
@@ -41,28 +42,56 @@ export class CartFormPage implements OnInit {
     public cartService: CartService,
     private firestoreService: FirestoreService,
     private afauth: AngularFireAuth,
-     private router: Router,
-    public formBuilder: FormBuilder){ 
-    this.ptotal= cartService.getTotal();
+    private router: Router,
+    public alertController: AlertController,
+    public formBuilder: FormBuilder
+  ) {
+    this.ptotal = cartService.getTotal();
     this.cart = this.cartService.getCartMap();
-     }
+  }
 
   ngOnInit() {
-    this.ionicForm = this.formBuilder.group({
-      nombre: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(100)]],
+    (this.ionicForm = this.formBuilder.group({
+      nombre: [
+        "",
+        [
+          Validators.required,
+          Validators.minLength(5),
+          Validators.maxLength(100),
+        ],
+      ],
       usuario: [],
-      nit: ['', [Validators.required, Validators.pattern('^[0-9]+$'), Validators.maxLength(8)]],
-      direccion: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(100)]],
-      telefono: ['', [Validators.required, Validators.pattern('^[0-9]+$'), Validators.maxLength(9)]],
-
-    }),
-    this.loadMap();
+      nit: [
+        "",
+        [
+          Validators.required,
+          Validators.pattern("^[0-9]+$"),
+          Validators.maxLength(8),
+        ],
+      ],
+      direccion: [
+        "",
+        [
+          Validators.required,
+          Validators.minLength(10),
+          Validators.maxLength(100),
+        ],
+      ],
+      telefono: [
+        "",
+        [
+          Validators.required,
+          Validators.pattern("^[0-9]+$"),
+          Validators.maxLength(9),
+        ],
+      ],
+    })),
+      this.loadMap();
     this.checkIfUserExists();
-
   }
 
   loadMap() {
-     this.geolocation
+    this.geolocation
       .getCurrentPosition()
       .then((resp) => {
         let latLng = new google.maps.LatLng(
@@ -91,18 +120,13 @@ export class CartFormPage implements OnInit {
         });
 
         this.markers.push(marker);
-        //alert(this.markers[0].position)
-
         marker.addListener("dragend", () => {
           this.markers.push(marker);
-          //alert(this.markers[this.markers.length-1].position);
           var res = this.markers[this.markers.length - 1].position
             .toString()
             .split("(");
           var res2 = res[1].split(",");
-          //console.log(" lat::"+res2[0]);
           var res3 = res2[1].split(")");
-          //console.log("long::"+res3[0]);
           this.lat = res2[0];
           this.long = res3[0];
         });
@@ -110,66 +134,118 @@ export class CartFormPage implements OnInit {
       .catch((error) => {
         console.log("Error getting location", error);
       });
-
-    // alert('latitud' +this.lat+', longitud'+this.long )
   }
-   checkIfUserExists(){
-    this.afauth.currentUser.then((data)=>{
-      this.isLooging =false;
-      if(data==null) {
-        this.text="Login";
-        this.currentuser=" ";
+  checkIfUserExists() {
+    this.afauth.currentUser.then((data) => {
+      this.isLooging = false;
+      if (data == null) {
+        this.text = "Login";
+        this.currentuser = " ";
       } else {
-        this.currentuser=data.displayName;
-        this.text="Logout ";
+        this.currentuser = data.displayName;
+        this.text = "Logout ";
       }
     });
   }
   get errorControl() {
     return this.ionicForm.controls;
   }
-  getKeys(map){
+  getKeys(map) {
     return Array.from(map.keys());
   }
- 
+
   submitForm() {
     this.isSubmitted = true;
     if (!this.ionicForm.valid) {
       return false;
     } else {
-        let name = this.name;
-        let user = this.user;
-        let address = this.direction;
-        let telf = this.telephone;
-        let nit = this.nits
-
-        this.createSale(
-          {
-            position: {
-              lat: Number(this.lat),
-              lng: Number(this.long),
+      this.alertController
+        .create({
+          header: "Confirmar",
+          subHeader: 'Confirmar',
+          message: "¿Está seguro que desea confirmar el pedido?",
+          buttons: [
+            {
+              text: "NO",
+              handler: () => {
+                this.router.navigate(["/"]);
+              },
             },
-              usuario: user,
-              nombre : name,
-              direccion : address,
-              telefono : telf,
-              nit: nit,
-              productos : this.getKeys(this.cart),
-              total : this.ptotal
+            {
+              text: "SI",
+              handler: () => {
+                let name = this.name;
+                let user = this.user;
+                let address = this.direction;
+                let telf = this.telephone;
+                let nit = this.nits;
+
+                this.createSale({
+                  position: {
+                    lat: Number(this.lat),
+                    lng: Number(this.long),
+                  },
+                  usuario: user,
+                  nombre: name,
+                  direccion: address,
+                  telefono: telf,
+                  nit: nit,
+                  productos: this.getKeys(this.cart),
+                  total: this.ptotal,
+                });
+
+                this.router.navigate(["/"]);
+              },
+            },
+          ],
+        })
+        .then((res) => {
+          res.present();
         });
-
-        this.router.navigate(['/']);
-
     }
   }
+  sale() {
+    let name = this.name;
+    let user = this.user;
+    let address = this.direction;
+    let telf = this.telephone;
+    let nit = this.nits;
 
-  createSale(sale : Sale){
+    this.createSale({
+      position: {
+        lat: Number(this.lat),
+        lng: Number(this.long),
+      },
+      usuario: user,
+      nombre: name,
+      direccion: address,
+      telefono: telf,
+      nit: nit,
+      productos: this.getKeys(this.cart),
+      total: this.ptotal,
+    });
+
+    this.router.navigate(["/"]);
+  }
+  goToHome() {
+    this.router.navigate(["/"]);
+  }
+  createSale(sale: Sale) {
     this.firestoreService.insertData(sale);
   }
-  get nombre() { return this.ionicForm.get('nombre'); }
-  get usuario() { return this.ionicForm.get('usuario'); }
-  get direccion() { return this.ionicForm.get('direccion'); }
-  get nit() { return this.ionicForm.get('nit'); }
-  get telefono() { return this.ionicForm.get('telefono'); }
+  get nombre() {
+    return this.ionicForm.get("nombre");
+  }
+  get usuario() {
+    return this.ionicForm.get("usuario");
+  }
+  get direccion() {
+    return this.ionicForm.get("direccion");
+  }
+  get nit() {
+    return this.ionicForm.get("nit");
+  }
+  get telefono() {
+    return this.ionicForm.get("telefono");
+  }
 }
-
