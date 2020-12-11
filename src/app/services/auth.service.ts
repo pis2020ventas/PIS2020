@@ -59,30 +59,7 @@ export class AuthService
     return user.emailVerified ===true ? true : false;
   }
     
-  async loginfacebook() : Promise<User> {    
-    try {    
-      const loading = await this.loadingCtrl.create({
-      message:'Authenticating..',
-      spinner: 'crescent',
-      showBackdrop:true
-    });
-    loading.present();
-    var provider = new firebase.auth.FacebookAuthProvider();
-    const {user} = await this.afauth.signInWithPopup(provider);
-    this.updateUserData(user);
-    loading.dismiss();
-    return user;
-  } catch (error) {
-    console.log('Error->',error);
-    /*
-    const credential = result.credential as firebase.auth.OAuthCredential;
-        const token = credential.accessToken;
-        // The signed-in user info.
-        const user = result.user;*/
-  }
-}
-
-  async logingoogle2(): Promise<User> {
+   async logingoogle(): Promise<User> {
     try {    
         const loading = await this.loadingCtrl.create({
         message:'Authenticating..',
