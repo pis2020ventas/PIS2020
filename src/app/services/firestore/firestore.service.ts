@@ -56,6 +56,7 @@ export class FirestoreService {
         lat: sale.position.lat,
         lng: sale.position.lng
       },
+      usuario: sale.usuario,
       nombre: sale.nombre,
       direccion: sale.direccion,
       telefono: sale.telefono,

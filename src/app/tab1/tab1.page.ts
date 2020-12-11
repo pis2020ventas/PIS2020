@@ -75,11 +75,11 @@ export class Tab1Page implements OnInit {
     this.afauth.currentUser.then((data)=>{
       this.isLooging =false;
       if(data==null) {
-        this.text="Login";
+        this.text="INICIAR SESIÓN";
         this.currentuser=" ";
       } else {
         this.currentuser=data.displayName;
-        this.text="Logout ";
+        this.text="SALIR";
       }
     });
   }

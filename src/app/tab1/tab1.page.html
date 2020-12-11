@@ -2,16 +2,24 @@
   <ion-header *ngIf="!isLooging" translucent>
     <ion-toolbar class="headers">
       <ion-title class="titles">NUESTROS PRODUCTOS</ion-title>
-      <ion-card-subtitle>{{currentuser}}</ion-card-subtitle>
+      <ion-card-subtitle color="white">{{currentuser}}</ion-card-subtitle>
     </ion-toolbar>
     <ion-item>
-      <ion-button (click)="isLogged()"> 
+      <ion-button (click)="isLogged()">
         {{text}}
-       </ion-button>
+      </ion-button>
     </ion-item>
-    <ion-item class="dropdown"> 
-      <ion-select [(ngModel)]="selectSucursal" interface="popover" (ionChange)="getProductSucursal(selectSucursal)">
-        <ion-select-option *ngFor="let suc of sucursales" value={{suc.id}}  class="dropdown">
+    <ion-item class="dropdown">
+      <ion-select
+        [(ngModel)]="selectSucursal"
+        interface="popover"
+        (ionChange)="getProductSucursal(selectSucursal)"
+      >
+        <ion-select-option
+          *ngFor="let suc of sucursales"
+          value="{{suc.id}}"
+          class="dropdown"
+        >
           {{suc.name}} - {{suc.address}}
         </ion-select-option>
       </ion-select>
@@ -23,30 +31,41 @@
     </ion-toolbar>
   </ion-header>
 
-  <ion-content *ngIf="!isLooging" fullscreen style="--background: antiquewhite">
+  <ion-content
+    *ngIf="!isLooging"
+    fullscreen
+    style="--background: antiquewhite;"
+  >
     <ion-card *ngFor="let data of productsSuc" class="productcard">
       <img :src="{{data.imagen}}" />
       <ion-card-header>
-        <ion-card-subtitle>PRECIO: {{data.precio}} bs.</ion-card-subtitle>
-        <h4 routerLink="/product/{{data.id}}">
+        <ion-card-subtitle color="black">
           {{ data.nombre }}
-        </h4>
+          <br />
+          PRECIO:
+          <strong>{{data.precio}} bs.</strong>
+        </ion-card-subtitle>
       </ion-card-header>
       <ion-card-content>
         {{ data.descripcion }}
         <section class="full-width">
-          <ion-button (click)="addProductCart(data)" expand="block">AÑADIR AL CARRITO</ion-button>
+          <ion-button (click)="addProductCart(data)" expand="block">
+            AÑADIR AL CARRITO
+          </ion-button>
         </section>
       </ion-card-content>
     </ion-card>
     <ion-item *ngIf="this.productsSuc.length == 0">
-      <ion-icon name="sad-outline" ></ion-icon>
-      <ion-content [fullscreen]="true" Style="--color: white; --background:#a67305 " >
+      <ion-icon name="sad-outline"></ion-icon>
+      <ion-content
+        [fullscreen]="true"
+        Style="--color: white; --background:#a67305 "
+      >
         No se han encontrado productos, intenta más tarde.
       </ion-content>
     </ion-item>
   </ion-content>
   <ion-content *ngIf="isLooging" fullscreen>
     <div *ngIf="isLooging; then loggingMethod() else loggingMethod()"></div>
-  </ion-content>  
+  </ion-content>
 </ion-app>
