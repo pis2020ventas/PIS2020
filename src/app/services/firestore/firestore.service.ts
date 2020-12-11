@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Sale } from 'src/app/shared/sale.interface';
 import { ToastController } from '@ionic/angular';
+import { User } from 'src/app/shared/user';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,7 @@ export class FirestoreService {
   private productsCollection: AngularFirestoreCollection<Product>;
   private sucursalesCollection: AngularFirestoreCollection<Sucursal>;
   private productsSucursalCollection: AngularFirestoreCollection<Product>;
+  private userCollection: AngularFirestoreCollection<User>;
   private bookDoc: AngularFirestoreDocument<Product>;
   private sucDoc: AngularFirestoreDocument<Sucursal>;
   private book: Observable<Product>;
@@ -56,6 +58,7 @@ export class FirestoreService {
         lat: sale.position.lat,
         lng: sale.position.lng
       },
+      usuario: sale.usuario,
       nombre: sale.nombre,
       direccion: sale.direccion,
       telefono: sale.telefono,
@@ -108,7 +111,7 @@ export class FirestoreService {
   }
 
   getProductoSucursal(id: string) {
-    this.productsSucursalCollection = this.afs.collection<Product>(`inventario/${id}/comida/`);
+    this.productsSucursalCollection = this.afs.collection<Product>(`inventario/comida/${id}/`);
     return this.productsSucursalCollection.snapshotChanges()
       .pipe(
         map(actions =>
@@ -120,5 +123,10 @@ export class FirestoreService {
         )
       );
   }
+  async getUserName(id: string) { 
+      var v;
+      this.userCollection = this.afs.collection("users");
+      return this.userCollection.doc(id).valueChanges();
 
+    }
 }

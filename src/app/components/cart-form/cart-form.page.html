@@ -4,10 +4,21 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content style="--background: antiquewhite">
+<ion-content style="--background: antiquewhite;">
   <form [formGroup]="ionicForm" (ngSubmit)="submitForm()" novalidate>
     <ion-item lines="full">
-      <ion-label position="floating">Nombre:</ion-label>
+      <ion-label position="floating"></ion-label>
+      <ion-input
+        disabled="true"
+        [value]="currentuser"
+        [(ngModel)]="user"
+        formControlName="usuario"
+        type="text"
+      ></ion-input>
+    </ion-item>
+
+    <ion-item lines="full">
+      <ion-label position="floating">Nombre o Razón Social:</ion-label>
       <ion-input
         [(ngModel)]="name"
         formControlName="nombre"
@@ -101,23 +112,23 @@
       Sólo son permitidos valores númericos.
     </span>
     <div id="carritoc">
-      <h2 class="total">Lista de Productos a comprar:</h2> 
-        <ion-card *ngFor="let product of getKeys(cart)" class="cartelements">
-          <ion-item>
-              <img :src="{{product.imagen}}" />
-            <ion-label class="cuantity">
-              {{ product.nombre }}
-            </ion-label>
-          </ion-item>
-          <ion-item>
-            <ion-label class="cuantity">
-              Cantidad : {{ cart.get(product) }}
-            </ion-label>
-          </ion-item>
-          <ion-card-header class="info">
-            Subtotal: {{ product.precio * cart.get(product) }} Bs.
-          </ion-card-header>
-        </ion-card>
+      <h4 class="total">Lista de Productos a comprar:</h4>
+      <ion-card *ngFor="let product of getKeys(cart)" class="cartelements">
+        <ion-item>
+          <img :src="{{product.imagen}}" />
+          <ion-label class="cuantity">
+            {{ product.nombre }}
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label class="cuantity">
+            Cantidad : {{ cart.get(product) }}
+          </ion-label>
+        </ion-item>
+        <ion-card-header class="info">
+          Subtotal: {{ product.precio * cart.get(product) }} Bs.
+        </ion-card-header>
+      </ion-card>
     </div>
     <h2 class="total">Precio total: {{ptotal}} Bs.</h2>
 

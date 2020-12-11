@@ -13,7 +13,7 @@ import { LoadingController } from '@ionic/angular';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
-import { first } from 'rxjs/operators';
+import { delay, first } from 'rxjs/operators';
 import { User } from '../shared/user';
 
 @Component({
@@ -75,11 +75,11 @@ export class Tab1Page implements OnInit {
     this.afauth.currentUser.then((data)=>{
       this.isLooging =false;
       if(data==null) {
-        this.text="Login";
+        this.text="INICIAR SESIÓN";
         this.currentuser=" ";
       } else {
         this.currentuser=data.displayName;
-        this.text="Logout ";
+        this.text="SALIR";
       }
     });
   }
@@ -109,9 +109,19 @@ export class Tab1Page implements OnInit {
  }
 
   loggingMethod() {
-    this.afauth.currentUser.then((data)=> {
+    this.afauth.currentUser.then(async data=> {
       if(data!=null) {
-        this.currentuser = data.displayName;
+        console.log(data.uid);
+        if(data.displayName==null){
+          (await this.dataApis.getUserName(data.uid)).subscribe(a =>{
+            this.currentuser = a.displayName;
+          });
+          console.log(this.currentuser);
+          this.isLooging=false;
+        } else {
+          this.currentuser = data.displayName;
+          this.isLooging=false;
+        }
         this.text = "Log Out";
       }
       else{

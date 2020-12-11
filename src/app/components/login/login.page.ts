@@ -58,7 +58,7 @@ export class LoginPage implements OnInit {
   async onLoginGoogle()
   {
     try {
-      const user = await this.auth.logingoogle2();
+      const user = await this.auth.logingoogle();
       if(user) {
         const isVerified = this.auth.isEmailVerified(user);
         if (isVerified) {
