@@ -70,7 +70,7 @@ export class FirestoreService {
       moto: ""
     });
 
-    this.toast('\Compra realizada', 'primary');
+    this.toast('\Compra realizada', 'warning');
   }
 
   async toast(message, status) {

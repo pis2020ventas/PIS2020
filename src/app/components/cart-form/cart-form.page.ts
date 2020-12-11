@@ -34,6 +34,7 @@ export class CartFormPage implements OnInit {
   private isLooging;
   private text;
   private currentuser;
+  markers = [];
 
   constructor(
     private geolocation: Geolocation,
@@ -61,17 +62,56 @@ export class CartFormPage implements OnInit {
   }
 
   loadMap() {
-    this.geolocation
+     this.geolocation
       .getCurrentPosition()
       .then((resp) => {
-     
+        let latLng = new google.maps.LatLng(
+          resp.coords.latitude,
+          resp.coords.longitude
+        );
         this.lat = resp.coords.latitude.toString();
         this.long = resp.coords.longitude.toString();
 
+        let mapOptions = {
+          center: latLng,
+          zoom: 15,
+          mapTypeId: google.maps.MapTypeId.ROADMAP,
+        };
+
+        this.map = new google.maps.Map(
+          document.getElementById("map"),
+          mapOptions
+        );
+
+        var marker = new google.maps.Marker({
+          draggable: true,
+          map: this.map,
+          animation: google.maps.Animation.DROP,
+          position: latLng,
+        });
+
+        this.markers.push(marker);
+        //alert(this.markers[0].position)
+
+        marker.addListener("dragend", () => {
+          this.markers.push(marker);
+          //alert(this.markers[this.markers.length-1].position);
+          var res = this.markers[this.markers.length - 1].position
+            .toString()
+            .split("(");
+          var res2 = res[1].split(",");
+          //console.log(" lat::"+res2[0]);
+          var res3 = res2[1].split(")");
+          //console.log("long::"+res3[0]);
+          this.lat = res2[0];
+          this.long = res3[0];
+        });
       })
       .catch((error) => {
         console.log("Error getting location", error);
       });
+
+    // alert('latitud' +this.lat+', longitud'+this.long )
   }
    checkIfUserExists(){
     this.afauth.currentUser.then((data)=>{
