@@ -34,6 +34,10 @@ const routes: Routes = [
     loadChildren: () => import('./components/cart-form/cart-form.module').then( m => m.CartFormPageModule)
   },
   {
+    path: 'saleslist',
+    loadChildren: () => import('./components/saleslist/saleslist.module').then( m => m.SaleslistPageModule)
+  },
+  {
     path: '**',
     loadChildren: () => import('./components/page-not-found/page-not-found-routing.module').then( m => m.PageNotFoundPageRoutingModule)
   }
