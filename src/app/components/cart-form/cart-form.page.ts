@@ -7,6 +7,7 @@ import { CartService } from 'src/app/services/cart/cart.service';
 import { Sale } from 'src/app/shared/sale.interface';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
+import { Product } from 'src/app/shared/product.interface';
 declare var google;
 let uid: any;
 
@@ -114,13 +115,25 @@ export class CartFormPage implements OnInit {
               direccion : address,
               telefono : telf,
               nit: nit,
-              productos : this.getKeys(this.cart),
+              productos : this.getAllCart(this.cart),
               total : this.ptotal
         });
 
         this.router.navigate(['/']);
 
     }
+  }
+
+  getAllCart(map){
+    let cartArray = new Array<Product>();
+    let temporal = this.getKeys(map);
+    temporal.forEach((product) => {
+      for(var i = 0; i < map.get(product); i++) {
+        cartArray.push(product);
+      }
+    });
+    console.log(cartArray);
+    return cartArray;
   }
 
   createSale(sale : Sale){
