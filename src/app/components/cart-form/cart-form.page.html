@@ -111,6 +111,7 @@
     >
       Sólo son permitidos valores númericos.
     </span>
+
     <div id="carritoc">
       <h4 class="total">Lista de Productos a comprar:</h4>
       <ion-card *ngFor="let product of getKeys(cart)" class="cartelements">
@@ -130,6 +131,7 @@
         </ion-card-header>
       </ion-card>
     </div>
+
     <h2 class="total">Precio total: {{ptotal}} Bs.</h2>
 
     <ion-row>
@@ -139,5 +141,22 @@
         </ion-button>
       </ion-col>
     </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-button
+          type="submit"
+          color="danger"
+          expand="block"
+          (click)="goToHome()"
+        >
+          Cancelar
+        </ion-button>
+      </ion-col>
+    </ion-row>
   </form>
+  <h3 class="location">Elija la ubicación en el mapa:</h3>
+  <div id="map"></div>
+  <ion-card>
+    <div id="map"></div>
+  </ion-card>
 </ion-content>

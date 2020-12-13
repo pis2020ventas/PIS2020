@@ -101,7 +101,7 @@ export class Tab1Page implements OnInit {
        this.isLooging=true;
      } else { //If logged, logout
        this.logout();
-       this.text = "Login";
+       this.text = "INICIAR SESIÓN";
        this.currentuser = "";
        this.isLooging=false;
      }
@@ -122,11 +122,11 @@ export class Tab1Page implements OnInit {
           this.currentuser = data.displayName;
           this.isLooging=false;
         }
-        this.text = "Log Out";
+        this.text = "SALIR";
       }
       else{
         this.currentuser = "";
-        this.text = "Log In";
+        this.text = "INICIAR SESIÓN";
       }
       this.isLooging=false;
     });
