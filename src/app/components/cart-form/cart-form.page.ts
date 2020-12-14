@@ -207,27 +207,6 @@ export class CartFormPage implements OnInit {
         });
     }
   }
-  sale() {
-    let name = this.name;
-    let user = this.user;
-    let address = this.direction;
-    let telf = this.telephone;
-    let nit = this.nits;
-
-    this.createSale({
-      position: {
-        lat: Number(this.lat),
-        lng: Number(this.long),
-      },
-      usuario: user,
-      nombre: name,
-      direccion: address,
-      telefono: telf,
-      nit: nit,
-      productos: this.getKeys(this.cart),
-      total: this.ptotal,
-    });
-  }
   goToHome() {
     this.router.navigate(["/"]);
   }
