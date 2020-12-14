@@ -66,9 +66,9 @@ export class AuthService
         spinner: 'crescent',
         showBackdrop:true
       });
-      loading.present();
+      //loading.present();
       const {user} =await this.afauth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
-      loading.dismiss();
+      //loading.dismiss();
       this.updateUserData(user);
       return user;
     } catch (error) {
