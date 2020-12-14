@@ -2,11 +2,12 @@ import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Geolocation } from "@ionic-native/geolocation/ngx";
 import { FirestoreService } from "../../services/firestore/firestore.service";
+import { CartService } from 'src/app/services/cart/cart.service';
+import { Sale } from 'src/app/shared/sale.interface';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { Router } from '@angular/router';
+import { Product } from 'src/app/shared/product.interface';
 
-import { CartService } from "src/app/services/cart/cart.service";
-import { Sale } from "src/app/shared/sale.interface";
-import { AngularFireAuth } from "@angular/fire/auth";
-import { Router } from "@angular/router";
 declare var google;
 let uid: any;
 import { AlertController } from "@ionic/angular";
@@ -182,7 +183,6 @@ export class CartFormPage implements OnInit {
                 let address = this.direction;
                 let telf = this.telephone;
                 let nit = this.nits;
-
                 this.createSale({
                   position: {
                     lat: Number(this.lat),
@@ -193,7 +193,7 @@ export class CartFormPage implements OnInit {
                   direccion: address,
                   telefono: telf,
                   nit: nit,
-                  productos: this.getKeys(this.cart),
+                  productos : this.getAllCart(this.cart),
                   total: this.ptotal,
                 });
 
@@ -207,34 +207,22 @@ export class CartFormPage implements OnInit {
         });
     }
   }
-  sale() {
-    let name = this.name;
-    let user = this.user;
-    let address = this.direction;
-    let telf = this.telephone;
-    let nit = this.nits;
-
-    this.createSale({
-      position: {
-        lat: Number(this.lat),
-        lng: Number(this.long),
-      },
-      usuario: user,
-      nombre: name,
-      direccion: address,
-      telefono: telf,
-      nit: nit,
-      productos: this.getKeys(this.cart),
-      total: this.ptotal,
-    });
-
-    this.router.navigate(["/"]);
-  }
   goToHome() {
     this.router.navigate(["/"]);
   }
   createSale(sale: Sale) {
     this.firestoreService.insertData(sale);
+  }
+  getAllCart(map){
+    let cartArray = new Array<Product>();
+    let temporal = this.getKeys(map);
+    temporal.forEach((product) => {
+      for(var i = 0; i < map.get(product); i++) {
+        cartArray.push(product);
+      }
+    });
+    console.log(cartArray);
+    return cartArray;
   }
   get nombre() {
     return this.ionicForm.get("nombre");
