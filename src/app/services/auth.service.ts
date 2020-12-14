@@ -8,6 +8,7 @@ import { LoadingController, ToastController } from '@ionic/angular';
 import { switchMap } from 'rxjs/operators';
 import firebase  from 'firebase/app';
 import 'firebase/auth';
+import { error } from 'protractor';
 @Injectable({
   providedIn: 'root'
 })
@@ -90,6 +91,10 @@ export class AuthService
       } else {
         this.router.navigate(['/tabs/tab1']);
       }
+    }).catch((error) => {
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      this.toast(error.message,'danger');
     });
     loading.dismiss();
   } //end of login

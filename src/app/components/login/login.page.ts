@@ -41,14 +41,15 @@ export class LoginPage implements OnInit {
         spinner:'crescent',
         showBackdrop:true
       });
+      loading.present();
       this.auth.login(this.email,this.password)
       .then(()=>{
       })
       .catch((error)=>{
         this.toast(error.message, 'danger');
       });
+      loading.dismiss();
     } else {
-      this.toast('Please enter your email and password','danger');
     }
   } //end of login
 
