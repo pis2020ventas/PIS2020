@@ -136,15 +136,18 @@ export class CartFormPage implements OnInit {
       });
   }
   checkIfUserExists() {
-    this.afauth.currentUser.then((data) => {
-      this.isLooging = false;
-      if (data == null) {
-        this.text = "Login";
-        this.currentuser = " ";
-      } else {
-        this.currentuser = data.displayName;
-        this.text = "Logout ";
-      }
+    this.afauth.currentUser.then(async (data) => {
+     if(data.displayName==null){
+          (await this.firestoreService.getUserName(data.uid)).subscribe(a =>{
+            this.currentuser = a.displayName;
+          });
+          console.log(this.currentuser);
+          this.isLooging=false;
+        } else {
+          this.currentuser = data.displayName;
+          this.isLooging=false;
+        }
+
     });
   }
   get errorControl() {
