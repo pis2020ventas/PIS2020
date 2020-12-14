@@ -20,7 +20,7 @@ export class CartService {
     } else {
       this.cart.set(product, 1);
     }
-    this.toast('\"' + product.nombre + ' x ' + (this.cart.get(product)) + '\" añadido al Carrito', 'primary');
+    this.toast('\"' + product.nombre + ' x ' + (this.cart.get(product)) + '\" añadido al Carrito', 'warning');
   }
 
   removeProductCart(product): void {
