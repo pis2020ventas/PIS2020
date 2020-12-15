@@ -67,7 +67,8 @@ export class FirestoreService {
       estado: "Listo para recoger",
       fechahorapedido: new Date(),
       total: sale.total,
-      moto: ""
+      moto: "",
+      sucursal: sale.sucursal
     });
 
     this.toast('\Compra realizada', 'warning');

@@ -37,6 +37,7 @@ export class CartFormPage implements OnInit {
   private text;
   private currentuser;
   markers = [];
+  sucursalCartText: string;
 
   constructor(
     private geolocation: Geolocation,
@@ -52,7 +53,13 @@ export class CartFormPage implements OnInit {
   }
 
   ngOnInit() {
-    (this.ionicForm = this.formBuilder.group({
+   this.validations();
+    this.loadMap();
+    this.checkIfUserExists();
+    this.setSpecificSucursalText(this.cartService.sucursal);
+  }
+  validations(){
+     (this.ionicForm = this.formBuilder.group({
       nombre: [
         "",
         [
@@ -86,11 +93,9 @@ export class CartFormPage implements OnInit {
           Validators.maxLength(9),
         ],
       ],
-    })),
-      this.loadMap();
-    this.checkIfUserExists();
+    }))
+  
   }
-
   loadMap() {
     this.geolocation
       .getCurrentPosition()
@@ -142,9 +147,9 @@ export class CartFormPage implements OnInit {
           (await this.firestoreService.getUserName(data.uid)).subscribe(a =>{
             this.currentuser = a.displayName;
           });
-          console.log(this.currentuser);
           this.isLooging=false;
         } else {
+          
           this.currentuser = data.displayName;
           this.isLooging=false;
         }
@@ -155,7 +160,7 @@ export class CartFormPage implements OnInit {
     return this.ionicForm.controls;
   }
   getKeys(map) {
-    return Array.from(map.keys());
+       return Array.from(map.keys());
   }
 
   submitForm() {
@@ -194,7 +199,8 @@ export class CartFormPage implements OnInit {
                   telefono: telf,
                   nit: nit,
                   productos : this.getAllCart(this.cart),
-                  total: this.ptotal,
+                  sucursal: this.sucursalCartText,
+                  total: this.ptotal
                 });
 
                 this.router.navigate(["/"]);
@@ -205,6 +211,15 @@ export class CartFormPage implements OnInit {
         .then((res) => {
           res.present();
         });
+    }
+  }
+   setSpecificSucursalText(id:string):void{
+    if(id != null){
+      this.firestoreService.getOneSucursal(id).subscribe(sucursal => {
+        this.sucursalCartText= sucursal.name;
+      })
+    }else {
+      console.log("caca");
     }
   }
   goToHome() {
@@ -239,4 +254,5 @@ export class CartFormPage implements OnInit {
   get telefono() {
     return this.ionicForm.get("telefono");
   }
+ 
 }

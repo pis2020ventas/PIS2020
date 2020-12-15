@@ -9,5 +9,6 @@ export interface Sale {
    telefono : number,
    productos : Product[],
    nit : string,
-   total : number
+   total : number,
+   sucursal : string
 }
