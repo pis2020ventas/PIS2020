@@ -66,7 +66,7 @@ export class FirestoreService {
       productos: sale.productos,
       nit: sale.nit,
       estado: "Listo para recoger",
-      fechahorapedido: new Date(),
+      fechahorapedido: sale.fechahorapedido,
       total: sale.total,
       moto: "",
       sucursal: sale.sucursal,

@@ -204,7 +204,8 @@ export class CartFormPage implements OnInit {
                   productos : this.getAllCart(this.cart),
                   sucursal: this.cartService.sucursal,
                   total: this.ptotal,
-                  pedido: "Pedido - " + Math.floor(Math.random() * 999999)
+                  pedido: "Pedido - " + Math.floor(Math.random() * 999999),
+                  fechahorapedido: new Date(),
                 });
 
                 this.router.navigate(["/"]);
@@ -217,15 +218,7 @@ export class CartFormPage implements OnInit {
         });
     }
   }
-   setSpecificSucursalText(id:string):void{
-    if(id != null){
-      this.firestoreService.getOneSucursal(id).subscribe(sucursal => {
-        this.sucursalCartText= sucursal.name;
-      })
-    }else {
-      //console.log("caca");
-    }
-  }
+
   goToHome() {
     this.router.navigate(["/"]);
   }
