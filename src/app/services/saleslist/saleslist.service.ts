@@ -11,7 +11,7 @@ export class SaleslistService {
   private salesCollection: AngularFirestoreCollection<Sale>;
 
   constructor(private afs: AngularFirestore) {
-    this.salesCollection = afs.collection<Sale>('venta');
+    this.salesCollection = afs.collection<Sale>('Pedidos');
   }
 
   public getAllSales() {

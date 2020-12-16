@@ -111,12 +111,12 @@ export class Tab1Page implements OnInit {
   loggingMethod() {
     this.afauth.currentUser.then(async data=> {
       if(data!=null) {
-        console.log(data.uid);
+        //console.log(data.uid);
         if(data.displayName==null){
           (await this.dataApis.getUserName(data.uid)).subscribe(a =>{
             this.currentuser = a.displayName;
           });
-          console.log(this.currentuser);
+          //console.log(this.currentuser);
           this.isLooging=false;
         } else {
           this.currentuser = data.displayName;

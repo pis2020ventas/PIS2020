@@ -21,8 +21,8 @@ export class FirestoreService {
   private book: Observable<Product>;
 
   constructor(private toastr: ToastController, private afs: AngularFirestore) {
-    this.productsCollection = afs.collection<Product>('comida');
-    this.sucursalesCollection = afs.collection<Sucursal>('sucursales');
+    this.productsCollection = afs.collection<Product>('Comida');
+    this.sucursalesCollection = afs.collection<Sucursal>('Sucursales');
   }
 
   public getAllProducts() {
@@ -39,7 +39,7 @@ export class FirestoreService {
   }
 
   public getOneProduct(id: string) {
-    this.bookDoc = this.afs.doc<Product>(`comida/${id}`);
+    this.bookDoc = this.afs.doc<Product>(`Comida/${id}`);
     return this.book = this.bookDoc.snapshotChanges().pipe(map(action => {
       if (action.payload.exists === false) {
         return null;
@@ -53,7 +53,8 @@ export class FirestoreService {
 
   public insertData(sale: Sale) {
     let ids = this.afs.createId();
-    this.afs.doc('venta' + '/' + ids).set({
+    this.afs.doc('Pedidos' + '/' + ids).set({
+      uid:sale.uid,
       position: {
         lat: sale.position.lat,
         lng: sale.position.lng
@@ -99,7 +100,7 @@ export class FirestoreService {
   }
 
   getOneSucursal(id: string) {
-    this.sucDoc = this.afs.doc<Sucursal>(`sucursales/${id}`);
+    this.sucDoc = this.afs.doc<Sucursal>(`Sucursales/${id}`);
     return this.sucDoc.snapshotChanges().pipe(map(action => {
       if (action.payload.exists === false) {
         return null;
@@ -112,7 +113,7 @@ export class FirestoreService {
   }
 
   getProductoSucursal(id: string) {
-    this.productsSucursalCollection = this.afs.collection<Product>(`inventario/comida/${id}/`);
+    this.productsSucursalCollection = this.afs.collection<Product>(`Inventario/comida/${id}/`);
     return this.productsSucursalCollection.snapshotChanges()
       .pipe(
         map(actions =>
@@ -126,7 +127,7 @@ export class FirestoreService {
   }
   async getUserName(id: string) { 
       var v;
-      this.userCollection = this.afs.collection("users");
+      this.userCollection = this.afs.collection("Users");
       return this.userCollection.doc(id).valueChanges();
 
     }

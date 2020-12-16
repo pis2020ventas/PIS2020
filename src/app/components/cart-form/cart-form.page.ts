@@ -36,6 +36,7 @@ export class CartFormPage implements OnInit {
   private isLooging;
   private text;
   private currentuser;
+  private currentsuperuser;
   markers = [];
   sucursalCartText: string;
 
@@ -146,6 +147,7 @@ export class CartFormPage implements OnInit {
      if(data.displayName==null){
           (await this.firestoreService.getUserName(data.uid)).subscribe(a =>{
             this.currentuser = a.displayName;
+            
           });
           this.isLooging=false;
         } else {
@@ -153,7 +155,7 @@ export class CartFormPage implements OnInit {
           this.currentuser = data.displayName;
           this.isLooging=false;
         }
-
+        this.currentsuperuser = data.uid;
     });
   }
   get errorControl() {
@@ -183,6 +185,7 @@ export class CartFormPage implements OnInit {
             {
               text: "SI",
               handler: () => {
+                let uid = this.currentsuperuser;
                 let name = this.name;
                 let user = this.user;
                 let address = this.direction;
@@ -219,7 +222,7 @@ export class CartFormPage implements OnInit {
         this.sucursalCartText= sucursal.name;
       })
     }else {
-      console.log("caca");
+      //console.log("caca");
     }
   }
   goToHome() {

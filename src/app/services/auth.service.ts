@@ -30,7 +30,7 @@ export class AuthService
         {
           if(user) 
           {
-            return this.afs.doc(`users/${user.uid}`).valueChanges();
+            return this.afs.doc(`Users/${user.uid}`).valueChanges();
           } else {
             return of(null);
           }
@@ -39,7 +39,7 @@ export class AuthService
   }
 
   private updateUserData(user:User) { 
-    const userRef:AngularFirestoreDocument<User> = this.afs.doc(`users/${user.uid}`);
+    const userRef:AngularFirestoreDocument<User> = this.afs.doc(`Users/${user.uid}`);
     const data:User = {
       uid:user.uid,
       email:user.email,

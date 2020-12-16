@@ -2,6 +2,7 @@ import { ILatLng } from './latlng.interface';
 import { Product } from './product.interface';
 
 export interface Sale {
+   uid?:string,
    position : ILatLng,
    nombre: string,
    usuario: string,
