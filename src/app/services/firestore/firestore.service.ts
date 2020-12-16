@@ -63,7 +63,7 @@ export class FirestoreService {
       nombre: sale.nombre,
       direccion: sale.direccion,
       telefono: sale.telefono,
-      productos: sale.productos,
+      productos: this.getCart(sale.productos),
       nit: sale.nit,
       estado: "Listo para recoger",
       fechahorapedido: sale.fechahorapedido,
@@ -85,6 +85,26 @@ export class FirestoreService {
       animated: true
     });
     toast.present();
+  }
+
+  getCart(products: Product[]) {
+    let cart = [];
+    let i = 0;
+    products.forEach((product) => {
+      if (i > 0 && cart[i - 1].id == product.id) {
+        cart[i - 1] = {
+          id: product.id,
+          cantidad: cart[i - 1] + 1
+        };
+      } else {
+        cart.push({
+          id: product.id,
+          cantidad: 1
+        });
+      }
+      i++;
+    });
+    return cart;
   }
 
   getSucursales() {
