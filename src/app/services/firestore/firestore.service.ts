@@ -128,7 +128,7 @@ export class FirestoreService {
   }
   async getUserName(id: string) { 
       var v;
-      this.userCollection = this.afs.collection("Users");
+      this.userCollection = this.afs.collection("users");
       return this.userCollection.doc(id).valueChanges();
 
     }
