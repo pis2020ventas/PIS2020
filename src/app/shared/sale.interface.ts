@@ -11,5 +11,7 @@ export interface Sale {
    productos : Product[],
    nit : string,
    total : number,
-   sucursal : string
+   sucursal : string,
+   pedido: string,
+   
 }

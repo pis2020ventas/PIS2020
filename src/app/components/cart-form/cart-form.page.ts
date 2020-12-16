@@ -57,7 +57,6 @@ export class CartFormPage implements OnInit {
    this.validations();
     this.loadMap();
     this.checkIfUserExists();
-    this.setSpecificSucursalText(this.cartService.sucursal);
   }
   validations(){
      (this.ionicForm = this.formBuilder.group({
@@ -185,7 +184,7 @@ export class CartFormPage implements OnInit {
             {
               text: "SI",
               handler: () => {
-                let uid = this.currentsuperuser;
+             //   let uid = this.currentsuperuser;
                 let name = this.name;
                 let user = this.user;
                 let address = this.direction;
@@ -196,14 +195,16 @@ export class CartFormPage implements OnInit {
                     lat: Number(this.lat),
                     lng: Number(this.long),
                   },
+                 
                   usuario: user,
                   nombre: name,
                   direccion: address,
                   telefono: telf,
                   nit: nit,
                   productos : this.getAllCart(this.cart),
-                  sucursal: this.sucursalCartText,
-                  total: this.ptotal
+                  sucursal: this.cartService.sucursal,
+                  total: this.ptotal,
+                  pedido: "Pedido - " + Math.floor(Math.random() * 999999)
                 });
 
                 this.router.navigate(["/"]);

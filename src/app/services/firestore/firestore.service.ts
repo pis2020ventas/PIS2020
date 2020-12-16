@@ -54,7 +54,7 @@ export class FirestoreService {
   public insertData(sale: Sale) {
     let ids = this.afs.createId();
     this.afs.doc('Pedidos' + '/' + ids).set({
-      uid:sale.uid,
+     // uid:sale.uid,
       position: {
         lat: sale.position.lat,
         lng: sale.position.lng
@@ -69,7 +69,8 @@ export class FirestoreService {
       fechahorapedido: new Date(),
       total: sale.total,
       moto: "",
-      sucursal: sale.sucursal
+      sucursal: sale.sucursal,
+      pedido:sale.pedido
     });
 
     this.toast('\Compra realizada', 'warning');
@@ -122,7 +123,7 @@ export class FirestoreService {
             const id = a.payload.doc.id;
             return { id, ...data };
           })
-        )
+        ) 
       );
   }
   async getUserName(id: string) { 
