@@ -54,7 +54,7 @@ export class FirestoreService {
   public insertData(sale: Sale) {
     let ids = this.afs.createId();
     this.afs.doc('Pedidos' + '/' + ids).set({
-     // uid:sale.uid,
+      uid: sale.uid,
       position: {
         lat: sale.position.lat,
         lng: sale.position.lng
@@ -87,24 +87,17 @@ export class FirestoreService {
     toast.present();
   }
 
-  getCart(products: Product[]) {
-    let cart = [];
-    let i = 0;
-    products.forEach((product) => {
-      if (i > 0 && cart[i - 1].id == product.id) {
-        cart[i - 1] = {
-          id: product.id,
-          cantidad: cart[i - 1] + 1
-        };
-      } else {
-        cart.push({
-          id: product.id,
-          cantidad: 1
-        });
-      }
-      i++;
+  getCart(map){
+    let cartArray = [];
+    map.forEach((cantidad, product) => {
+      console.log(cantidad);
+      console.log(product);
+      cartArray.push({
+        id: product.id,
+        cantidad: Number(cantidad)
+      });
     });
-    return cart;
+    return cartArray;
   }
 
   getSucursales() {

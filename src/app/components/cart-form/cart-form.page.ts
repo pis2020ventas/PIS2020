@@ -155,6 +155,7 @@ export class CartFormPage implements OnInit {
           this.isLooging=false;
         }
         this.currentsuperuser = data.uid;
+        console.log("-----" + this.currentsuperuser);
     });
   }
   get errorControl() {
@@ -184,7 +185,7 @@ export class CartFormPage implements OnInit {
             {
               text: "SI",
               handler: () => {
-             //   let uid = this.currentsuperuser;
+                let uid = this.currentsuperuser;
                 let name = this.name;
                 let user = this.user;
                 let address = this.direction;
@@ -195,13 +196,13 @@ export class CartFormPage implements OnInit {
                     lat: Number(this.lat),
                     lng: Number(this.long),
                   },
-                 
+                  uid: uid,
                   usuario: user,
                   nombre: name,
                   direccion: address,
                   telefono: telf,
                   nit: nit,
-                  productos : this.getAllCart(this.cart),
+                  productos : this.cart,
                   sucursal: this.cartService.sucursal,
                   total: this.ptotal,
                   pedido: "Pedido - " + Math.floor(Math.random() * 999999),
@@ -224,17 +225,6 @@ export class CartFormPage implements OnInit {
   }
   createSale(sale: Sale) {
     this.firestoreService.insertData(sale);
-  }
-  getAllCart(map){
-    let cartArray = new Array<Product>();
-    let temporal = this.getKeys(map);
-    temporal.forEach((product) => {
-      for(var i = 0; i < map.get(product); i++) {
-        cartArray.push(product);
-      }
-    });
-    console.log(cartArray);
-    return cartArray;
   }
   get nombre() {
     return this.ionicForm.get("nombre");

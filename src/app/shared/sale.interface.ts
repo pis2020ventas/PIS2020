@@ -8,7 +8,7 @@ export interface Sale {
    usuario: string,
    direccion : string,
    telefono : number,
-   productos : Product[],
+   productos : Map<Product, number>,
    nit : string,
    total : number,
    sucursal : string,
