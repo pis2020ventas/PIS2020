@@ -1,14 +1,15 @@
 <ion-app>
-  <ion-header *ngIf="!isLooging" translucent>
-    <ion-toolbar class="headers">
-      <ion-title class="titles">NUESTROS PRODUCTOS</ion-title>
-      <ion-title class="titles">Usuario: {{currentuser}}</ion-title>
-    </ion-toolbar>
-    <ion-item>
-      <ion-button (click)="isLogged()">
-        {{text}}
-      </ion-button>
-    </ion-item>
+  <ion-header *ngIf="!isLooging" translucent="true">
+    <ion-toolbar class="headers" >
+      <ion-row>
+      <ion-title class="titles">
+        NUESTROS PRODUCTOS
+      </ion-title>      
+          <button  class="btn2" ion-button icon-only  (click)="isLogged()">
+            <ion-icon name={{iconName}} ></ion-icon>       
+          </button>
+        </ion-row>
+      </ion-toolbar>
     <ion-item class="dropdown">
       <ion-select
         [(ngModel)]="selectSucursal"
@@ -34,7 +35,7 @@
   <ion-content
     *ngIf="!isLooging"
     fullscreen
-    style="--background: antiquewhite;"
+    style="--background: whitesmoke;"
   >
     <ion-card *ngFor="let data of productsSuc" class="productcard">
       <img :src="{{data.imagen}}" />
@@ -49,8 +50,10 @@
       <ion-card-content>
         {{ data.descripcion }}
         <section class="full-width">
-          <ion-button (click)="addProductCart(data)" expand="block">
+          <ion-button class="btn1" shape="round"  (click)="addProductCart(data)" expand="block">
+            <ion-icon slot="end" name="cart" color="success" ></ion-icon>
             AÑADIR AL CARRITO
+            <!-- <ion-icon name="cart-outline"></ion-icon> -->
           </ion-button>
         </section>
       </ion-card-content>
@@ -59,11 +62,12 @@
       <ion-icon name="sad-outline"></ion-icon>
       <ion-content
         [fullscreen]="true"
-        Style="--color: white; --background:#a67305 "
+        Style="--color: white; --background:#fee484 "
       >
         No se han encontrado productos, intenta más tarde.
       </ion-content>
     </ion-item>
+    <ion-item></ion-item>
   </ion-content>
   <ion-content *ngIf="isLooging" fullscreen>
     <div *ngIf="isLooging; then loggingMethod() else loggingMethod()"></div>

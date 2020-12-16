@@ -38,6 +38,7 @@
       <ion-button
         size="small"
         class="delete"
+        fill="outline"
         (click)="removeProductCart(product)"
       >
         <ion-icon name="trash-outline"></ion-icon>
@@ -50,6 +51,7 @@
       <ion-button
         *ngIf="this.cart.size > 0"
         class="buttons"
+        fill="outline"
         (click)="goToProducts()"
       >
         <ion-icon name="card-outline"></ion-icon>
@@ -57,7 +59,7 @@
       </ion-button>
     </ion-card-header>
   </ion-content>
-  <ion-content [fullscreen]="true" *ngIf="this.cart.size == 0" style="--color: black; --background: antiquewhite">
+  <ion-content [fullscreen]="true" *ngIf="this.cart.size == 0" style="--color: black; --background: white">
     No tienes nada en tu carrito, intenta añadiendo algun producto
   </ion-content>
 </ion-app>

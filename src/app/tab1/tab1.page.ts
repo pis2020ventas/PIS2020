@@ -29,7 +29,7 @@ export class Tab1Page implements OnInit {
   private loading: HTMLIonLoadingElement;
   private isLooging;
   private currentuser;
-  private text;
+  iconName: String;
   selectSucursal: any;
   constructor(private dataApis: FirestoreService, public cartService: CartService,
     private afauth: AngularFireAuth,
@@ -75,11 +75,11 @@ export class Tab1Page implements OnInit {
     this.afauth.currentUser.then((data)=>{
       this.isLooging =false;
       if(data==null) {
-        this.text="INICIAR SESIÓN";
+        this.iconName="log-in-outline";
         this.currentuser=" ";
       } else {
         this.currentuser=data.displayName;
-        this.text="SALIR";
+        this.iconName="log-out-outline";
       }
     });
   }
@@ -101,7 +101,7 @@ export class Tab1Page implements OnInit {
        this.isLooging=true;
      } else { //If logged, logout
        this.logout();
-       this.text = "INICIAR SESIÓN";
+       this.iconName = "log-in-outline";
        this.currentuser = "";
        this.isLooging=false;
      }
@@ -122,11 +122,11 @@ export class Tab1Page implements OnInit {
           this.currentuser = data.displayName;
           this.isLooging=false;
         }
-        this.text = "SALIR";
+        this.iconName = "log-out-outline";
       }
       else{
         this.currentuser = "";
-        this.text = "INICIAR SESIÓN";
+        this.iconName = "log-in-outline";
       }
       this.isLooging=false;
     });

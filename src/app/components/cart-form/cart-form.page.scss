@@ -31,12 +31,13 @@ img {
   
 
 .total{
-  border-color:  #a67305;
+  border-color:  black;
   border-radius: 10px;
-  border-style: double;
-  margin-left: 20%;
-  margin-right: 20%;
-  color: #78751f;
+  border-style: outset;
+  margin-left: 10%;
+  margin-right: 10%;
+  text-align: center;
+  color: black;
   background-color: white;
 }
 .location{
@@ -44,10 +45,19 @@ img {
 }
 .info{
   text-align: center;
-  color: #78751f
+  color: #FF8C00
 }
 
+.btn {
+  color: white;
+  --background: #FF8C00;
+}
 #map{
   width: 100%;
   height: 100%;
+}
+
+ion-toolbar {
+  --background: #f6d83c;
+  color: white;
 }

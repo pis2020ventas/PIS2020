@@ -1,28 +1,15 @@
 .titles{
     color: white;
-    margin: 1rem;
-    text-align: center;
-    border-style: double;
-    border-color: #FFFFFF;
-    border-radius: 10px;
-    background-color: #a67305;
-    ::before{
-        content:"hello";
-    }
-
-    ::after{
-        content:"goodby";
-    }
-}
+   }
 
 .productcard{
-    background-color: whitesmoke;
-    border-style: outset;
+    background-color: white;
+    // --border-color: #ecebea;
+    margin: 1rem;
+    // border-style: outset;
 }
 
 img {
-    //margin-left: auto;
-    //margin-right: auto;
     display: block;
     width: 80%;
     margin-top: 1rem;
@@ -31,48 +18,63 @@ img {
 }
 
 .headers{
-    text-align: center;
-    background-color: #a67305;
-    --background : #a67305;
-
+    text-align: left;
+    background-color: #f6d83c;
+}
+.btn1 {
+    --background: #f6d83c;
+    color: white;
+    -webkit-text-stroke: 1px white;
+}
+.btn2 {
+    background-color: #f6d83c;
+    color: white;
+    size: large;
+    font-size: large;
 }
 
 ion-button{
-    --background: #78751f;
-    --color:#FFFFFF;
     margin: auto;
     display: block;
-    button{
-        color: white;
-    }
-
+    background-color: white;
+    // --background: #f6d83c;
+    color: #FF8C00;
     text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-style: italic;
+
 }
 
-button{
-    color: #FFFFFF;
-}
 
 ion-header{
-    --background: #78751f;
+    --background: #f6d83c;
+    display: block;
+    &.dropdown{
+        --background: #fff1c2;
+        color: #97918c;
+    }
 }
-
+ion-icon {
+    font-size: 25px; 
+}
 ion-item{
-    --background: #a67305;
+    --background: #fff1c2;
     margin: auto;
     display: block;
     &.dropdown{
-        --background: #78751f;
-        color: white;
+        --background: #fff1c2;
+        color: #97918c;
     }
 }
 
 ion-label{
     color: white;
+    font-family: Arial, Helvetica, sans-serif;
+     font-style: italic;
 }
 
 ion-select-option{
-    color: white;
+    color: #fee484;
 }
 
 label{
@@ -80,9 +82,10 @@ label{
 }
 
 
+ion-title {
+    font-size: 1em;
+}
 
-/*
-#78751f green
-#a67305 orange
-#ac9614 yellow
-*/
+ion-toolbar {
+    --background: #f6d83c;
+}

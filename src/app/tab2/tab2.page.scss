@@ -1,5 +1,3 @@
-/* CSS */
-
 img {
     //margin-left: auto;
     //margin-right: auto;
@@ -25,40 +23,46 @@ img {
 
 .cartelements{
     background-color: whitesmoke;
-    border-style: outset;
+    // border-style: outset;
 }
 
 .tab2pg{
     color: #808289
 }
+ion-toolbar {
+    --background: #f6d83c;
+}
 
 .titles{
-    color: white;
-    text-align: center;
-    ::before{
-        content:"hello";
-    }
-
-    ::after{
-        content:"goodby";
-    }
+    color:  white;
+    margin-left: 1rem;
+    // text-align: center;
 }
 
 ion-button{
-    --background: #78751f;
-    --color:#FFFFFF;
+    --background: #FF8C00;
+    --color:white;
     margin: 1rem;
     display: block;
     text-align: center;
     &.delete{
-        --background: #a67305;
+       // --background: red;
+        //color: white;
+        --background: white;
+        color: red;
     }
     &.more{
-        --background: #ac9614;
+        --background: #FF8C00;
+        color: white
     }
     &.less{
-        --background: #a67305;
+        --background: #FF8C00;
+        color: white;
     }
+}
+
+ion-card {
+    margin-top: 3rem;
 }
 
 ion-item{
@@ -66,11 +70,12 @@ ion-item{
 }
 
 .total{
-    border-color:  #a67305;
+    border-color:  black;
     border-radius: 10px;
-    border-style: double;
-    margin-left: 20%;
-    margin-right: 20%;
-    color: #78751f;
+    border-style: outset;
+    margin-left: 10%;
+    margin-right: 10%;
+    text-align: center;
+    color: black;
     background-color: white;
 }

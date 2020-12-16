@@ -22,12 +22,24 @@ ion-button{
     margin: 1rem;
     display: block;
     text-align: center;
-    --background: #78751f;
+}
+
+.btn {
+    --background: #FF8C00;
+    color: white;
+}
+
+.btn2 {
+    color: white;
 }
 
 ion-card-title{
-    background-color: #78751f;
-    color: white;
+    background-color: white;
+    color: black;
+    // color: #FF8C00;
     text-align: center;
-    margin: 1rem;
+}
+ion-card {
+    margin-top: 5rem;
+    vertical-align: middle;
 }
