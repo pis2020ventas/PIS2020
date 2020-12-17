@@ -56,9 +56,11 @@ export class CartService {
       position: 'top',
       color: status,
       duration: 2000,
-      animated: true
+      animated: true,
+      cssClass: 'tabs-bottom'
     });
     toast.present();
   }
 
 }
+

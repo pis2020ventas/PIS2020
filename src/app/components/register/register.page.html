@@ -1,5 +1,5 @@
 
-<ion-content class="ion-padding" style="--background: antiquewhite;">
+<ion-content class="ion-padding" style="--background: #fff1c2;">
   <ion-card>
     <ion-card-header>
       <ion-card-title style="text-align:center"> Register</ion-card-title>
@@ -7,7 +7,7 @@
     <ion-card-content>
       <ion-list>
         <ion-item>
-          <ion-label position="floating">Name</ion-label>
+          <ion-label position="floating">Nombre</ion-label>
           <ion-input [(ngModel)]="name" type="text"></ion-input>
         </ion-item>
 
@@ -17,12 +17,12 @@
         </ion-item>
 
         <ion-item>
-          <ion-label position="floating">Password</ion-label>
+          <ion-label position="floating">Contraseña</ion-label>
           <ion-input [(ngModel)]="password" type="password"></ion-input>
         </ion-item>
 
         <ion-item>
-          <ion-label position="floating">Confirm Password</ion-label>
+          <ion-label position="floating">Confirmar Contraseña</ion-label>
           <ion-input [(ngModel)]="confirmPassword" type="password" (ionChange)="checkPassword()"></ion-input>
           <ion-text *ngIf="password && !passwordMatch" color="danger">Password do not match!</ion-text>
           <ion-text *ngIf="password && passwordMatch" color="success">Password Match</ion-text>

@@ -9,14 +9,21 @@
     
     </ion-toolbar>
   </ion-header>
-  <ion-content [fullscreen]="true" *ngIf="this.cart.size > 0" class="tab2pg" style="--background: antiquewhite">
+  <ion-content [fullscreen]="true" *ngIf="this.cart.size > 0" class="tab2pg" style="--background: #fff1c2">
     <ion-card *ngFor="let product of getKeys(cart)" class="cartelements">
-      <ion-item>
-        
+      <ion-header>
+      <ion-row>
           <img :src="{{product.imagen}}" />
-        
-        {{ product.nombre }}
-      </ion-item>
+          <ion-button
+          size="small"
+          class="delete"
+          (click)="removeProductCart(product)"
+        >
+          <ion-icon name="trash-outline"></ion-icon>
+        </ion-button>
+    </ion-row>
+    <label>{{ product.nombre }} </label>
+  </ion-header>
       <ion-item>
         <ion-button
           (click)="lessProductCart(product)"
@@ -35,21 +42,16 @@
       <ion-card-header class="info">
         Subtotal: {{ product.precio * cart.get(product) }} Bs.
       </ion-card-header>
-      <ion-button
-        size="small"
-        class="delete"
-        (click)="removeProductCart(product)"
-      >
-        <ion-icon name="trash-outline"></ion-icon>
-      </ion-button>
+    
     </ion-card>
     <ion-card-header class="total">
       Total de compra: {{ cartService.getTotal() }} Bs.
-    </ion-card-header>
-    <ion-card-header>
+    </ion-card-header>   
+     <ion-card-header>
       <ion-button
         *ngIf="this.cart.size > 0"
         class="buttons"
+        fill="outline"
         (click)="goToProducts()"
       >
         <ion-icon name="card-outline"></ion-icon>
@@ -57,7 +59,7 @@
       </ion-button>
     </ion-card-header>
   </ion-content>
-  <ion-content [fullscreen]="true" *ngIf="this.cart.size == 0" style="--color: black; --background: antiquewhite">
+  <ion-content [fullscreen]="true" *ngIf="this.cart.size == 0" style="--color: black; --background: white">
     No tienes nada en tu carrito, intenta añadiendo algun producto
   </ion-content>
 </ion-app>
