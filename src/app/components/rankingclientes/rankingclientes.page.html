@@ -19,8 +19,11 @@
       </ion-card-subtitle>
     </ion-card-header>
     <ion-card-content>
-      Fecha de la compra realizada
-      <strong>{{data.fecha }}</strong>
+      Fecha de la compra realizada:
+      <strong>
+        {{data.fecha | date:'dd' }}/{{data.fecha | date:'MM'}}/{{data.fecha |
+        date: 'yyyy'}}
+      </strong>
       <br />
       Nit: {{data.nit}}
       <br />

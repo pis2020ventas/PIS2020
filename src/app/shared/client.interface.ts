@@ -2,7 +2,7 @@ export interface Cliente
 {
     nombre?: string;
     total?: number;
-    fecha?: Date,
+    fecha?: string,
     uid?:string;
     nit?:string;
 
