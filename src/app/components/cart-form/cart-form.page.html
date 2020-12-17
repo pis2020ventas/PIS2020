@@ -4,7 +4,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content style="--background: antiquewhite;">
+<ion-content style="--background: #fff1c2;">
   <form [formGroup]="ionicForm" (ngSubmit)="submitForm()" novalidate>
     <ion-item lines="full">
       <ion-label position="floating"></ion-label>
@@ -113,7 +113,7 @@
     </span>
 
     <div id="carritoc">
-      <label style="text-align: center;"><h5>Lista de Productos a comprar:</h5></label>
+      <label style="text-align: left;"><h5 style="margin-left: 1rem;">Lista de Productos a comprar:</h5></label>
       <ion-card *ngFor="let product of getKeys(cart)" class="cartelements">
         <ion-item>
           <img :src="{{product.imagen}}" />
@@ -138,18 +138,6 @@
       <ion-col>
         <ion-button type="submit" class="btn" expand="block">
           Terminar compra
-        </ion-button>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col>
-        <ion-button
-          type="submit"
-          color="danger"
-          expand="block"
-          (click)="goToHome()"
-        >
-          Cancelar
         </ion-button>
       </ion-col>
     </ion-row>

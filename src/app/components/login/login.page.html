@@ -3,7 +3,7 @@
   <ion-card>
     <ion-header>
       <h1>
-      <ion-card-title>Login</ion-card-title>
+      <ion-card-title>Iniciar Sesión</ion-card-title>
       </h1>
     </ion-header>
     <ion-card-content>
@@ -18,11 +18,10 @@
         </ion-item>
       </ion-list>
     </ion-card-content>
-    <ion-button  class="btn" fill="outline" (click)="login()">Login</ion-button>
+    <ion-button  class="btn" (click)="login()">Login</ion-button>
     <ion-grid>
-        <ion-button class="btn2 google" (click)="onLoginGoogle(email,password)">
-          <ion-label>Iniciar sesion con Google </ion-label> 
-          <ion-icon slot="start" name="logo-google" ></ion-icon>
+        <ion-button class="google" (click)="onLoginGoogle(email,password)">
+          <ion-icon  name="logo-google" ></ion-icon>
         </ion-button>
     </ion-grid>
   </ion-card>

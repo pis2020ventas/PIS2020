@@ -31,14 +31,9 @@ img {
   
 
 .total{
-  border-color:  black;
-  border-radius: 10px;
-  border-style: outset;
-  margin-left: 10%;
-  margin-right: 10%;
   text-align: center;
-  color: black;
-  background-color: white;
+  // color: black;
+  -webkit-text-stroke: 1px black;
 }
 .location{
   color:#000000

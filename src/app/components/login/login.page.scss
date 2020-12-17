@@ -1,8 +1,9 @@
 .google{
     --background: #DB4437;
-    margin: auto;
-    display: block;
-    text-align: center;
+    // display: block;
+    color: white;
+    width: 90%;
+
 }
 .faebook{
     --background: #3b5998;
@@ -22,6 +23,7 @@ ion-button{
     margin: 1rem;
     display: block;
     text-align: center;
+    width: 90%;
 }
 
 .btn {
@@ -29,15 +31,14 @@ ion-button{
     color: white;
 }
 
-.btn2 {
-    color: white;
-}
 
 ion-card-title{
     background-color: white;
     color: black;
     // color: #FF8C00;
     text-align: center;
+    margin: 1rem;
+
 }
 ion-card {
     margin-top: 5rem;
