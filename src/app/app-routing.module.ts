@@ -38,9 +38,15 @@ const routes: Routes = [
     loadChildren: () => import('./components/saleslist/saleslist.module').then( m => m.SaleslistPageModule)
   },
   {
+    path: 'rankingclientes',
+    loadChildren: () => import('./components/rankingclientes/rankingclientes.module').then( m => m.RankingclientesPageModule)
+  },
+  {
     path: '**',
     loadChildren: () => import('./components/page-not-found/page-not-found-routing.module').then( m => m.PageNotFoundPageRoutingModule)
-  }
+  },
+
+
 
 
 ];

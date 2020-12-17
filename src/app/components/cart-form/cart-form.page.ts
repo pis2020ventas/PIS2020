@@ -11,6 +11,7 @@ import { Product } from 'src/app/shared/product.interface';
 declare var google;
 let uid: any;
 import { AlertController } from "@ionic/angular";
+import { Cliente } from "src/app/shared/client.interface";
 
 @Component({
   selector: "app-cart-form",
@@ -36,6 +37,7 @@ export class CartFormPage implements OnInit {
   private isLooging;
   private text;
   private currentuser;
+  private currentsuperuser;
   markers = [];
   sucursalCartText: string;
 
@@ -56,7 +58,6 @@ export class CartFormPage implements OnInit {
    this.validations();
     this.loadMap();
     this.checkIfUserExists();
-    this.setSpecificSucursalText(this.cartService.sucursal);
   }
   validations(){
      (this.ionicForm = this.formBuilder.group({
@@ -146,6 +147,7 @@ export class CartFormPage implements OnInit {
      if(data.displayName==null){
           (await this.firestoreService.getUserName(data.uid)).subscribe(a =>{
             this.currentuser = a.displayName;
+            
           });
           this.isLooging=false;
         } else {
@@ -153,7 +155,8 @@ export class CartFormPage implements OnInit {
           this.currentuser = data.displayName;
           this.isLooging=false;
         }
-
+        this.currentsuperuser = data.uid;
+        console.log("-----" + this.currentsuperuser);
     });
   }
   get errorControl() {
@@ -183,6 +186,7 @@ export class CartFormPage implements OnInit {
             {
               text: "SI",
               handler: () => {
+                let uid = this.currentsuperuser;
                 let name = this.name;
                 let user = this.user;
                 let address = this.direction;
@@ -193,14 +197,24 @@ export class CartFormPage implements OnInit {
                     lat: Number(this.lat),
                     lng: Number(this.long),
                   },
+                  uid: uid,
                   usuario: user,
                   nombre: name,
                   direccion: address,
                   telefono: telf,
                   nit: nit,
-                  productos : this.getAllCart(this.cart),
-                  sucursal: this.sucursalCartText,
-                  total: this.ptotal
+                  productos : this.cart,
+                  sucursal: this.cartService.sucursal,
+                  total: this.ptotal,
+                  pedido: "Pedido - " + Math.floor(Math.random() * 999999),
+                  fechahorapedido: new Date(),
+                });
+                this.createClientForRanking({
+                  nombre: name,
+                  fecha: new Date(),
+                  total:this.ptotal,   
+                  uid: uid,
+                  nit:nit,
                 });
 
                 this.router.navigate(["/"]);
@@ -213,31 +227,15 @@ export class CartFormPage implements OnInit {
         });
     }
   }
-   setSpecificSucursalText(id:string):void{
-    if(id != null){
-      this.firestoreService.getOneSucursal(id).subscribe(sucursal => {
-        this.sucursalCartText= sucursal.name;
-      })
-    }else {
-      console.log("caca");
-    }
-  }
+
   goToHome() {
     this.router.navigate(["/"]);
   }
   createSale(sale: Sale) {
     this.firestoreService.insertData(sale);
   }
-  getAllCart(map){
-    let cartArray = new Array<Product>();
-    let temporal = this.getKeys(map);
-    temporal.forEach((product) => {
-      for(var i = 0; i < map.get(product); i++) {
-        cartArray.push(product);
-      }
-    });
-    console.log(cartArray);
-    return cartArray;
+  createClientForRanking(cliente: Cliente) {
+    this.firestoreService.createClientForRanking(cliente);
   }
   get nombre() {
     return this.ionicForm.get("nombre");

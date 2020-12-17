@@ -7,12 +7,15 @@ import { map } from 'rxjs/operators';
 import { Sale } from 'src/app/shared/sale.interface';
 import { ToastController } from '@ionic/angular';
 import { User } from 'src/app/shared/user';
+import { Cliente } from 'src/app/shared/client.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FirestoreService {
   private productsCollection: AngularFirestoreCollection<Product>;
+    private clientsCollection: AngularFirestoreCollection<Cliente>;
+
   private sucursalesCollection: AngularFirestoreCollection<Sucursal>;
   private productsSucursalCollection: AngularFirestoreCollection<Product>;
   private userCollection: AngularFirestoreCollection<User>;
@@ -21,8 +24,10 @@ export class FirestoreService {
   private book: Observable<Product>;
 
   constructor(private toastr: ToastController, private afs: AngularFirestore) {
-    this.productsCollection = afs.collection<Product>('comida');
-    this.sucursalesCollection = afs.collection<Sucursal>('sucursales');
+    this.productsCollection = afs.collection<Product>('Comida');
+    this.clientsCollection = afs.collection<Product>('Cliente');
+
+    this.sucursalesCollection = afs.collection<Sucursal>('Sucursales');
   }
 
   public getAllProducts() {
@@ -37,9 +42,21 @@ export class FirestoreService {
         )
       );
   }
+public getAllClientes() {
+    return this.clientsCollection.snapshotChanges()
+      .pipe(
+        map(actions =>
+          actions.map(a => {
+            const data = a.payload.doc.data() as Cliente;
+            const id = a.payload.doc.id;
+            return { id, ...data };
+          })
+        )
+      );
+  }
 
   public getOneProduct(id: string) {
-    this.bookDoc = this.afs.doc<Product>(`comida/${id}`);
+    this.bookDoc = this.afs.doc<Product>(`Comida/${id}`);
     return this.book = this.bookDoc.snapshotChanges().pipe(map(action => {
       if (action.payload.exists === false) {
         return null;
@@ -53,7 +70,8 @@ export class FirestoreService {
 
   public insertData(sale: Sale) {
     let ids = this.afs.createId();
-    this.afs.doc('venta' + '/' + ids).set({
+    this.afs.doc('Pedidos' + '/' + ids).set({
+      uid: sale.uid,
       position: {
         lat: sale.position.lat,
         lng: sale.position.lng
@@ -62,16 +80,27 @@ export class FirestoreService {
       nombre: sale.nombre,
       direccion: sale.direccion,
       telefono: sale.telefono,
-      productos: sale.productos,
+      productos: this.getCart(sale.productos),
       nit: sale.nit,
       estado: "Listo para recoger",
-      fechahorapedido: new Date(),
+      fechahorapedido: sale.fechahorapedido,
       total: sale.total,
       moto: "",
-      sucursal: sale.sucursal
+      sucursal: sale.sucursal,
+      pedido:sale.pedido
     });
 
     this.toast('\Compra realizada', 'warning');
+  }
+  public createClientForRanking(client: Cliente){
+    let ids = this.afs.createId();
+    this.afs.doc('Cliente' + '/' + ids).set({
+      nombre: client.nombre,
+      nit: client.nit,
+      uid: client.uid,
+      fecha: client.fecha,
+      total:client.total,      
+    });
   }
 
   async toast(message, status) {
@@ -83,6 +112,19 @@ export class FirestoreService {
       animated: true
     });
     toast.present();
+  }
+
+  getCart(map){
+    let cartArray = [];
+    map.forEach((cantidad, product) => {
+      console.log(cantidad);
+      console.log(product);
+      cartArray.push({
+        id: product.id,
+        cantidad: Number(cantidad)
+      });
+    });
+    return cartArray;
   }
 
   getSucursales() {
@@ -99,7 +141,7 @@ export class FirestoreService {
   }
 
   getOneSucursal(id: string) {
-    this.sucDoc = this.afs.doc<Sucursal>(`sucursales/${id}`);
+    this.sucDoc = this.afs.doc<Sucursal>(`Sucursales/${id}`);
     return this.sucDoc.snapshotChanges().pipe(map(action => {
       if (action.payload.exists === false) {
         return null;
@@ -112,7 +154,7 @@ export class FirestoreService {
   }
 
   getProductoSucursal(id: string) {
-    this.productsSucursalCollection = this.afs.collection<Product>(`inventario/comida/${id}/`);
+    this.productsSucursalCollection = this.afs.collection<Product>(`Inventario/comida/${id}/`);
     return this.productsSucursalCollection.snapshotChanges()
       .pipe(
         map(actions =>
@@ -121,7 +163,7 @@ export class FirestoreService {
             const id = a.payload.doc.id;
             return { id, ...data };
           })
-        )
+        ) 
       );
   }
   async getUserName(id: string) { 
