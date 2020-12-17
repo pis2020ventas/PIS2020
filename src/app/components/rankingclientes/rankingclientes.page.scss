@@ -14,9 +14,17 @@
         content:"goodby";
     }
 }
+ion-toolbar {
+  --background: #f6d83c;
+  color: white;
+}
+ion-searchbar{
+--background: #ffffff;
+  color: rgb(15, 12, 12);
+}
 
 .productcard{
-    background-color: whitesmoke;
+    background-color: white;
     border-style: outset;
 }
 
