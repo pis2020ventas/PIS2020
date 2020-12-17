@@ -7,12 +7,15 @@ import { map } from 'rxjs/operators';
 import { Sale } from 'src/app/shared/sale.interface';
 import { ToastController } from '@ionic/angular';
 import { User } from 'src/app/shared/user';
+import { Cliente } from 'src/app/shared/client.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FirestoreService {
   private productsCollection: AngularFirestoreCollection<Product>;
+    private clientsCollection: AngularFirestoreCollection<Cliente>;
+
   private sucursalesCollection: AngularFirestoreCollection<Sucursal>;
   private productsSucursalCollection: AngularFirestoreCollection<Product>;
   private userCollection: AngularFirestoreCollection<User>;
@@ -22,6 +25,8 @@ export class FirestoreService {
 
   constructor(private toastr: ToastController, private afs: AngularFirestore) {
     this.productsCollection = afs.collection<Product>('Comida');
+    this.clientsCollection = afs.collection<Product>('Cliente');
+
     this.sucursalesCollection = afs.collection<Sucursal>('Sucursales');
   }
 
@@ -31,6 +36,18 @@ export class FirestoreService {
         map(actions =>
           actions.map(a => {
             const data = a.payload.doc.data() as Product;
+            const id = a.payload.doc.id;
+            return { id, ...data };
+          })
+        )
+      );
+  }
+public getAllClientes() {
+    return this.clientsCollection.snapshotChanges()
+      .pipe(
+        map(actions =>
+          actions.map(a => {
+            const data = a.payload.doc.data() as Cliente;
             const id = a.payload.doc.id;
             return { id, ...data };
           })
@@ -74,6 +91,16 @@ export class FirestoreService {
     });
 
     this.toast('\Compra realizada', 'warning');
+  }
+  public createClientForRanking(client: Cliente){
+    let ids = this.afs.createId();
+    this.afs.doc('Cliente' + '/' + ids).set({
+      nombre: client.nombre,
+      nit: client.nit,
+      uid: client.uid,
+      fecha: client.fecha,
+      total:client.total,      
+    });
   }
 
   async toast(message, status) {

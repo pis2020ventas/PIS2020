@@ -22,7 +22,9 @@ import { environment } from "src/environments/environment";
 
 import { GoogleMaps } from '@ionic-native/google-maps';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
-import { NativeGeocoder } from '@ionic-native/native-geocoder/ngx'
+import { NativeGeocoder } from '@ionic-native/native-geocoder/ngx';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+
 @NgModule({
   declarations: [
     AppComponent
@@ -36,7 +38,9 @@ import { NativeGeocoder } from '@ionic-native/native-geocoder/ngx'
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AngularFireStorageModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    Ng2SearchPipeModule
+
   ],
   providers: [
     AuthService,

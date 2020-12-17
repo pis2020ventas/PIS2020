@@ -11,6 +11,7 @@ import { Product } from 'src/app/shared/product.interface';
 declare var google;
 let uid: any;
 import { AlertController } from "@ionic/angular";
+import { Cliente } from "src/app/shared/client.interface";
 
 @Component({
   selector: "app-cart-form",
@@ -208,6 +209,13 @@ export class CartFormPage implements OnInit {
                   pedido: "Pedido - " + Math.floor(Math.random() * 999999),
                   fechahorapedido: new Date(),
                 });
+                this.createClientForRanking({
+                  nombre: name,
+                  fecha: new Date(),
+                  total:this.ptotal,   
+                  uid: uid,
+                  nit:nit,
+                });
 
                 this.router.navigate(["/"]);
               },
@@ -225,6 +233,9 @@ export class CartFormPage implements OnInit {
   }
   createSale(sale: Sale) {
     this.firestoreService.insertData(sale);
+  }
+  createClientForRanking(cliente: Cliente) {
+    this.firestoreService.createClientForRanking(cliente);
   }
   get nombre() {
     return this.ionicForm.get("nombre");

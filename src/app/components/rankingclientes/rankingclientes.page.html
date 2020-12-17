@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Lista de Clientes</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item lines="full">
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Search Here"
+      [(ngModel)]="term"
+    />
+  </ion-item>
+  <ion-card *ngFor="let data of products  " class="productcard">
+    <ion-card-header>
+      <ion-card-subtitle color="black">
+        Nombre del cliente: {{ data.nombre }}
+        <br />
+      </ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      Fecha de la compra realizada
+      <strong>{{data.fecha }}</strong>
+      <br />
+      Nit: {{data.nit}}
+      <br />
+      UID: {{data.uid}}
+    </ion-card-content>
+  </ion-card>
+</ion-content>
