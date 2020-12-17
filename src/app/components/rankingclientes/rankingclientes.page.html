@@ -6,14 +6,12 @@
 
 <ion-content>
   <ion-item lines="full">
-    <input
-      type="text"
-      class="form-control"
-      placeholder="Search Here"
-      [(ngModel)]="term"
-    />
+    <ion-searchbar animated (ionChange)="buscar($event)"></ion-searchbar>
   </ion-item>
-  <ion-card *ngFor="let data of products  " class="productcard">
+  <ion-card
+    *ngFor="let data of products | filtro: textoBuscar "
+    class="productcard"
+  >
     <ion-card-header>
       <ion-card-subtitle color="black">
         Nombre del cliente: {{ data.nombre }}

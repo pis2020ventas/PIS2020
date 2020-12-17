@@ -23,7 +23,7 @@ import { environment } from "src/environments/environment";
 import { GoogleMaps } from '@ionic-native/google-maps';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { NativeGeocoder } from '@ionic-native/native-geocoder/ngx';
-import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { PipesModule } from "src/pipes/pipes.module";
 
 @NgModule({
   declarations: [
@@ -39,7 +39,7 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
     AngularFirestoreModule,
     AngularFireStorageModule,
     AngularFireAuthModule,
-    Ng2SearchPipeModule
+    PipesModule,
 
   ],
   providers: [

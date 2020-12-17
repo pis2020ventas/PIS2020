@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { RankingclientesPageRoutingModule } from './rankingclientes-routing.module';
 
 import { RankingclientesPage } from './rankingclientes.page';
+import { PipesModule } from 'src/pipes/pipes.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    RankingclientesPageRoutingModule
+    RankingclientesPageRoutingModule,
+    PipesModule
   ],
   declarations: [RankingclientesPage]
 })

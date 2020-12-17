@@ -9,7 +9,7 @@ import { Cliente } from 'src/app/shared/client.interface';
 })
 export class RankingclientesPage implements OnInit {
   public products = Array<Cliente>();
-
+  textoBuscar: '';
   constructor(private dataApis: FirestoreService) { }
 
   ngOnInit() {
@@ -21,6 +21,9 @@ export class RankingclientesPage implements OnInit {
     this.dataApis.getAllClientes().subscribe(products => {
       this.products = products;
     })
+  }
+  buscar(event){
+    this.textoBuscar = event.detail.value;
   }
    
 }
