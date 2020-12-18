@@ -207,11 +207,11 @@ export class CartFormPage implements OnInit {
                   sucursal: this.cartService.sucursal,
                   total: this.ptotal,
                   pedido: "Pedido - " + Math.floor(Math.random() * 999999),
-                  fechahorapedido: new Date().toString(),
+                  fechahorapedido: new Date(),
                 });
                 this.createClientForRanking({
                   nombre: name,
-                  fecha: new Date().toString(),
+                  fecha: new Date(),
                   total:this.ptotal,   
                   uid: uid,
                   nit:nit,

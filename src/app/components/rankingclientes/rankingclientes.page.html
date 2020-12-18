@@ -12,20 +12,24 @@
     *ngFor="let data of products | filtro: textoBuscar "
     class="productcard"
   >
+    <ion-item>
+      <ion-icon name="person-circle-outline"></ion-icon>
+      <ion-label>Nit: {{data.nit}}</ion-label>
+    </ion-item>
     <ion-card-header>
       <ion-card-subtitle color="black">
-        Nombre del cliente: {{ data.nombre }}
+        Nombre del cliente
         <br />
       </ion-card-subtitle>
+      <ion-card-title color="black">{{ data.nombre }}</ion-card-title>
     </ion-card-header>
     <ion-card-content>
       Fecha de la compra realizada:
       <strong>
-        {{data.fecha | date:'dd' }}/{{data.fecha | date:'MM'}}/{{data.fecha |
-        date: 'yyyy'}}
+        {{ data.fecha.toDate()| date:'dd' }}/{{ data.fecha.toDate() |
+        date:'MM'}}/{{ data.fecha.toDate() | date: 'yyyy'}}
       </strong>
       <br />
-      Nit: {{data.nit}}
       <br />
       UID: {{data.uid}}
     </ion-card-content>
