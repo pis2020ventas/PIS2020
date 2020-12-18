@@ -25,16 +25,26 @@
       <ion-card-title color="black">{{ data.nombre }}</ion-card-title>
     </ion-card-header>
     <ion-card-content>
-      Fecha de la compra realizada:
+      <p>Fecha de la compra realizada:</p>
       <strong>
-        {{ data.fecha.toDate()| date:'dd' }}/{{ data.fecha.toDate() |
-        date:'MM'}}/{{ data.fecha.toDate() | date: 'yyyy'}}
+        <ion-badge color="success">
+          {{ data.fecha.toDate()| date:'dd' }}/{{ data.fecha.toDate() |
+          date:'MM'}}/{{ data.fecha.toDate() | date: 'yyyy'}}
+        </ion-badge>
+        <br />
+        <p>
+          Hora del pedido: {{data.fecha.toDate()| date:'HH'
+          }}:{{data.fecha.toDate()| date:'mm' }}
+        </p>
       </strong>
       <br />
-      Monto de la compra: {{data.total}} Bs.
+      <p>
+        Monto de la compra:
+        <ion-badge color="warning">{{data.total}} Bs.</ion-badge>
+      </p>
 
       <br />
-      UID: {{data.uid}}
+      <p>UID: {{data.uid}}</p>
     </ion-card-content>
   </ion-card>
 </ion-content>

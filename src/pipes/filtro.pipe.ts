@@ -13,7 +13,7 @@ export class FiltroPipe implements PipeTransform {
       return arreglo;
     }
     return arreglo.filter(item => {
-      return (item.nombre.toLowerCase().includes(texto) || item.nit.includes(texto)
+      return (item.nombre.toLowerCase().includes(texto.toLowerCase()) || item.nit.includes(texto.toLowerCase())
       );
     });
   }
