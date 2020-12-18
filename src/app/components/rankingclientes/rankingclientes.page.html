@@ -8,8 +8,9 @@
   <ion-item lines="full">
     <ion-searchbar animated (ionChange)="buscar($event)"></ion-searchbar>
   </ion-item>
+
   <ion-card
-    *ngFor="let data of products | filtro: textoBuscar "
+    *ngFor="let data of products | filtro: textoBuscar"
     class="productcard"
   >
     <ion-item>
@@ -30,6 +31,8 @@
         date:'MM'}}/{{ data.fecha.toDate() | date: 'yyyy'}}
       </strong>
       <br />
+      Monto de la compra: {{data.total}} Bs.
+
       <br />
       UID: {{data.uid}}
     </ion-card-content>
