@@ -87,7 +87,8 @@ public getAllClientes() {
       total: sale.total,
       moto: "",
       sucursal: sale.sucursal,
-      pedido:sale.pedido
+      pedido:sale.pedido,
+      detalle: sale.detalle
     });
 
     this.toast('\Compra realizada', 'warning');

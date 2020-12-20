@@ -111,6 +111,15 @@
     >
       Sólo son permitidos valores númericos.
     </span>
+    <ion-item lines="full">
+      <ion-label position="floating">Detalle:</ion-label>
+      <ion-input
+        [(ngModel)]="detalle"
+        maxlength="100"
+        formControlName="detalle"
+        type="text"
+      ></ion-input>
+    </ion-item>
 
     <div id="carritoc">
       <label style="text-align: left;"><h5 style="margin-left: 1rem;">Lista de Productos a comprar:</h5></label>

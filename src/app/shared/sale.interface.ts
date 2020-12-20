@@ -14,5 +14,5 @@ export interface Sale {
    sucursal : string,
    pedido: string,
    fechahorapedido: Date,
-   
+   detalle: string
 }

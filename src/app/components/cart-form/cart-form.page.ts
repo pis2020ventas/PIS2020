@@ -30,6 +30,7 @@ export class CartFormPage implements OnInit {
   user: string;
   direction: string;
   telephone: number;
+  detalle: string;
   cart = new Map();
   lat: string;
   long: string;
@@ -94,6 +95,13 @@ export class CartFormPage implements OnInit {
           Validators.maxLength(9),
         ],
       ],
+      detalle: [
+        "",
+        [
+          Validators.minLength(0),
+          Validators.maxLength(100),
+        ],
+      ]
     }))
   
   }
@@ -192,6 +200,7 @@ export class CartFormPage implements OnInit {
                 let address = this.direction;
                 let telf = this.telephone;
                 let nit = this.nits;
+                let detalle = this.detalle;
                 this.createSale({
                   position: {
                     lat: Number(this.lat),
@@ -208,6 +217,7 @@ export class CartFormPage implements OnInit {
                   total: this.ptotal,
                   pedido: "Pedido - " + Math.floor(Math.random() * 999999),
                   fechahorapedido: new Date(),
+                  detalle: detalle
                 });
                 this.createClientForRanking({
                   nombre: name,
