@@ -1,0 +1,91 @@
+.titles{
+    color: white;
+   }
+
+.productcard{
+    background-color: white;
+    // --border-color: #ecebea;
+    margin: 1rem;
+    // border-style: outset;
+}
+
+img {
+    display: block;
+    width: 80%;
+    margin-top: 1rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.headers{
+    text-align: left;
+    background-color: #f6d83c;
+}
+.btn1 {
+    --background: #f6d83c;
+    color: white;
+    -webkit-text-stroke: 1px white;
+}
+.btn2 {
+    background-color: #f6d83c;
+    color: white;
+    size: large;
+    font-size: large;
+}
+
+ion-button{
+    margin: auto;
+    display: block;
+    background-color: white;
+    // --background: #f6d83c;
+    color: #FF8C00;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-style: italic;
+    font-size: 11px;
+}
+
+
+ion-header{
+    --background: #f6d83c;
+    display: block;
+    &.dropdown{
+        --background: #fff1c2;
+        color: #97918c;
+    }
+}
+ion-icon {
+    font-size: 25px; 
+}
+ion-item{
+    --background: #fff1c2;
+    margin: auto;
+    display: block;
+    &.dropdown{
+        --background: #fff1c2;
+        color: #97918c;
+    }
+}
+
+ion-label{
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    font-style: italic;
+}
+
+ion-select-option{
+    color: #fee484;
+}
+
+label{
+    color: white;
+}
+
+
+ion-title {
+    font-size: 1em;
+}
+
+ion-toolbar {
+    --background: #f6d83c;
+}

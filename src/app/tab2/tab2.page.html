@@ -1,17 +1,65 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Tab 2
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
+<ion-app>
+  <ion-header [translucent]="true">
     <ion-toolbar>
-      <ion-title size="large">Tab 2</ion-title>
+      
+      <ion-card-title class="titles">
+        CARRITO
+      </ion-card-title>
+      <ion-card-subtitle name="subtitleSuc" class="titles">{{sucursalCartText}}</ion-card-subtitle>
+    
     </ion-toolbar>
   </ion-header>
-
-  <app-explore-container name="Tab 2 page"></app-explore-container>
-</ion-content>
+  <ion-content [fullscreen]="true" *ngIf="this.cart.size > 0" class="tab2pg" style="--background: #fff1c2">
+    <ion-card *ngFor="let product of getKeys(cart)" class="cartelements">
+      <ion-header>
+      <ion-row>
+          <img :src="{{product.imagen}}" />
+          <ion-button
+          size="small"
+          class="delete"
+          (click)="removeProductCart(product)"
+        >
+          <ion-icon name="trash-outline"></ion-icon>
+        </ion-button>
+    </ion-row>
+    <label>{{ product.nombre }} </label>
+  </ion-header>
+      <ion-item>
+        <ion-button
+          (click)="lessProductCart(product)"
+          [class.button-disabled]="cart.get(product) < 2"
+          class="less"
+        >
+          <ion-icon name="remove-circle-outline"></ion-icon>
+        </ion-button>
+        <ion-label class="cuantity">
+          {{ cart.get(product) }}
+        </ion-label>
+        <ion-button (click)="moreProductCart(product)" class="more">
+          <ion-icon name="add-circle-outline"></ion-icon>
+        </ion-button>
+      </ion-item>
+      <ion-card-header class="info">
+        Subtotal: {{ product.precio * cart.get(product) }} Bs.
+      </ion-card-header>
+    
+    </ion-card>
+    <ion-card-header class="total">
+      Total de compra: {{ cartService.getTotal() }} Bs.
+    </ion-card-header>   
+     <ion-card-header>
+      <ion-button
+        *ngIf="this.cart.size > 0"
+        class="buttons"
+        
+        (click)="goToProducts()"
+      >
+        <ion-icon name="card-outline"></ion-icon>
+        COMPRAR
+      </ion-button>
+    </ion-card-header>
+  </ion-content>
+  <ion-content [fullscreen]="true" *ngIf="this.cart.size == 0" style="--color: black; --background: white">
+    No tienes nada en tu carrito, intenta añadiendo algun producto
+  </ion-content>
+</ion-app>

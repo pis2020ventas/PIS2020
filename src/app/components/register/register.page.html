@@ -1,0 +1,36 @@
+
+<ion-content class="ion-padding" style="--background: #fff1c2;">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title style="text-align:center"> Registro</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item>
+          <ion-label position="floating">Nombre</ion-label>
+          <ion-input [(ngModel)]="name" type="text"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">Email</ion-label>
+          <ion-input [(ngModel)]="email" type="text"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">Contraseña</ion-label>
+          <ion-input [(ngModel)]="password" type="password"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">Confirmar Contraseña</ion-label>
+          <ion-input [(ngModel)]="confirmPassword" type="password" (ionChange)="checkPassword()"></ion-input>
+          <ion-text *ngIf="password && !passwordMatch" color="danger">Contraseñas no coinciden</ion-text>
+          <ion-text *ngIf="password && passwordMatch" color="success">Contraseñas coinciden</ion-text>
+        </ion-item>
+
+      </ion-list>
+    </ion-card-content>
+
+    <ion-button [disabled]="!passwordMatch" (click)="register()">Registrarse</ion-button>
+  </ion-card>
+</ion-content>

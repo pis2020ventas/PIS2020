@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Lista de Clientes</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content style="--background: #fff1c2;">
+  <ion-item lines="full">
+    <ion-searchbar animated (ionChange)="buscar($event)"></ion-searchbar>
+  </ion-item>
+
+  <ion-card
+    *ngFor="let data of products | filtro: textoBuscar"
+    class="productcard"
+  >
+    <ion-item>
+      <ion-icon name="person-circle-outline"></ion-icon>
+      <ion-label>Nit: {{data.nit}}</ion-label>
+    </ion-item>
+    <ion-card-header>
+      <ion-card-subtitle color="black">
+        Nombre del cliente
+        <br />
+      </ion-card-subtitle>
+      <ion-card-title color="black">{{ data.nombre }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>Fecha de la compra realizada:</p>
+      <strong>
+        <ion-badge color="success">
+          {{ data.fecha.toDate()| date:'dd' }}/{{ data.fecha.toDate() |
+          date:'MM'}}/{{ data.fecha.toDate() | date: 'yyyy'}}
+        </ion-badge>
+        <br />
+        <p>
+          Hora del pedido: {{data.fecha.toDate()| date:'HH'
+          }}:{{data.fecha.toDate()| date:'mm' }}
+        </p>
+      </strong>
+      <br />
+      <p>
+        Monto de la compra:
+        <ion-badge color="warning">{{data.total}} Bs.</ion-badge>
+      </p>
+
+      <br />
+      <p>UID: {{data.uid}}</p>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

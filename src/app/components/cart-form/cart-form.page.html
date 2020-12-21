@@ -1,0 +1,159 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>COMPRAR</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content style="--background: #fff1c2;">
+  <form [formGroup]="ionicForm" (ngSubmit)="submitForm()" novalidate>
+    <ion-item lines="full">
+      <ion-label position="floating"></ion-label>
+      <ion-input
+        disabled="true"
+        [value]="currentuser"
+        [(ngModel)]="user"
+        formControlName="usuario"
+        type="text"
+      ></ion-input>
+    </ion-item>
+
+    <ion-item lines="full">
+      <ion-label position="floating">Nombre o Razón Social:</ion-label>
+      <ion-input
+        [(ngModel)]="name"
+        formControlName="nombre"
+        type="text"
+      ></ion-input>
+    </ion-item>
+    <span
+      style="color: #ed1b24;"
+      class="error ion-padding"
+      *ngIf="isSubmitted && errorControl.nombre.errors?.required"
+    >
+      Espacio obligatorio
+    </span>
+    <span
+      style="color: #ed1b24;"
+      class="error ion-padding"
+      *ngIf="isSubmitted && errorControl.nombre.errors?.minlength"
+    >
+      El nombre debe tener al menos 5 carácteres
+    </span>
+    <ion-item lines="full">
+      <ion-label position="floating">Nit:</ion-label>
+      <ion-input
+        [(ngModel)]="nits"
+        maxlength="10"
+        formControlName="nit"
+        type="text"
+        required
+      ></ion-input>
+    </ion-item>
+    <span
+      class="error ion-padding"
+      style="color: #ed1b24;"
+      *ngIf="isSubmitted && errorControl.nit.errors?.required"
+    >
+      Espacio Obligatorio
+    </span>
+    <span
+      class="error ion-padding"
+      style="color: #ed1b24;"
+      *ngIf="isSubmitted && errorControl.nit.errors?.pattern"
+    >
+      Sólo son permitidos valores númericos.
+    </span>
+    <ion-item lines="full">
+      <ion-label position="floating">Dirección:</ion-label>
+      <ion-input
+        [(ngModel)]="direction"
+        formControlName="direccion"
+        type="text"
+      ></ion-input>
+    </ion-item>
+    <span
+      class="error ion-padding"
+      style="color: #ed1b24;"
+      *ngIf="isSubmitted && errorControl.direccion.errors?.required"
+    >
+      El nombre es requerido
+    </span>
+    <span
+      class="error ion-padding"
+      style="color: #ed1b24;"
+      *ngIf="isSubmitted && errorControl.direccion.errors?.minlength"
+    >
+      La dirección debe tener al menos 10 carácteres y especificar bien la dirección de domicilio.
+    </span>
+    <div id="map1"></div>
+
+    <ion-item lines="full">
+      <ion-label position="floating">Teléfono:</ion-label>
+      <ion-input
+        [(ngModel)]="telephone"
+        maxlength="10"
+        formControlName="telefono"
+        type="text"
+        required
+      ></ion-input>
+    </ion-item>
+    <span
+      class="error ion-padding"
+      style="color: #ed1b24;"
+      *ngIf="isSubmitted && errorControl.telefono.errors?.required"
+    >
+      Espacio obligatorio
+    </span>
+    <span
+      class="error ion-padding"
+      style="color: #ed1b24;"
+      *ngIf="isSubmitted && errorControl.telefono.errors?.pattern"
+    >
+      Sólo son permitidos valores númericos.
+    </span>
+    <ion-item lines="full">
+      <ion-label position="floating">Detalle:</ion-label>
+      <ion-input
+        [(ngModel)]="detalle"
+        maxlength="100"
+        formControlName="detalle"
+        type="text"
+      ></ion-input>
+    </ion-item>
+
+    <div id="carritoc">
+      <label style="text-align: left;"><h5 style="margin-left: 1rem;">Lista de Productos a comprar:</h5></label>
+      <ion-card *ngFor="let product of getKeys(cart)" class="cartelements">
+        <ion-item>
+          <img :src="{{product.imagen}}" />
+          <ion-label class="cuantity">
+            {{ product.nombre }}
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label class="cuantity">
+            Cantidad : {{ cart.get(product) }}
+          </ion-label>
+        </ion-item>
+        <ion-card-header class="info">
+          Subtotal: {{ product.precio * cart.get(product) }} Bs.
+        </ion-card-header>
+      </ion-card>
+    </div>
+
+    <ion-card-header class="total">Precio total: {{ptotal}} Bs.</ion-card-header>
+
+    <ion-row>
+      <ion-col>
+        <ion-button type="submit" class="btn" expand="block">
+          Terminar compra
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </form>
+  <h3 class="location">Elija la ubicación en el mapa:</h3>
+  <div id="map"></div>
+  <ion-card style="margin:auto">
+    <div id="map"></div>
+  </ion-card>
+</ion-content>

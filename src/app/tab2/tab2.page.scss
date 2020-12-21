@@ -1,0 +1,90 @@
+img {
+    //margin-left: auto;
+    //margin-right: auto;
+    display: block;
+    width: 50%;
+    margin: 1rem;
+}
+.cuantity{
+    text-align: center;
+    background-color: aliceblue;
+    color: black;
+}
+
+.cuantitybar{
+    background-color: #78751f;
+    flood-color: #78751f;
+}
+
+.info{
+    text-align: center;
+    color:black;
+}
+
+.cartelements{
+    background-color: whitesmoke;
+    text-align: center;
+    // border-style: outset;
+}
+
+.tab2pg{
+    color: #808289;
+    text-align: center;
+}
+ion-toolbar {
+    --background: #f6d83c;
+}
+
+.titles{
+    color:  white;
+    margin-left: 1rem;
+    text-align: center;
+    // text-align: center;
+}
+
+ion-button{
+    --background: #FF8C00;
+    --color:white;
+    margin: 1rem;
+    display: block;
+    -webkit-text-stroke: 1px white;
+    text-align: center;
+    &.delete{
+       --background: white;
+        color: red;
+        width: min-content;
+        margin-left: auto;
+        // margin-right: auto;
+        // --background: red;
+        // color: white;
+    }
+    &.more{
+        --background: #FF8C00;
+        color: white
+    }
+    &.less{
+        --background: #FF8C00;
+        color: white;
+    }
+}
+ion-header {
+    --background: white;
+    background-color: white;
+    text-align: center;
+}
+// ion-card {
+    // margin-top: 3rem;
+// }
+
+// ion-item{
+    // margin: 1rem;
+// }
+// .item {
+    // --background: #fff1c2
+// }
+
+.total{
+    text-align: center;
+    // color: black;
+    -webkit-text-stroke: 1px black;
+}

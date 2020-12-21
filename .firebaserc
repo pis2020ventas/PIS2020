@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "pis2020-39b08": {
+      "hosting": {
+        "app": [
+          "pis2020-39b08"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "chachasdb"
+  }
+}
